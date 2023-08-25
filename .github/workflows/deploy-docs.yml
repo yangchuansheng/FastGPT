@@ -3,12 +3,8 @@ name: deploy-docs
 on:
   workflow_dispatch:
   push:
-    paths:
-      - 'docSite/**'
     branches:
-      - 'main'
-    tags:
-      - 'v*.*.*'
+      - 'test'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
