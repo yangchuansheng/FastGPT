@@ -181,7 +181,7 @@ export const dispatchChatCompletion = async (props: Record<string, any>): Promis
       tokens: totalTokens,
       question: userChatInput,
       answer: answerText,
-      maxToken,
+      maxToken: max_tokens,
       quoteList: filterQuoteQA,
       completeMessages
     },
@@ -211,7 +211,7 @@ function filterQuote({
   const quotePrompt =
     filterQuoteQA.length > 0
       ? `"""${filterQuoteQA
-          .map((item) => (item.a ? `${item.q}\n${item.a}` : item.q))
+          .map((item) => (item.a ? `[${item.q}\n${item.a}]` : `${item.q}`))
           .join('\n\n')}"""`
       : '';
 
@@ -236,12 +236,15 @@ function getChatMessages({
   model: ChatModelItemType;
 }) {
   const limitText = (() => {
-    if (limitPrompt)
-      return `Use the provided content delimited by triple quotes to answer questions.${limitPrompt}`;
-    if (quotePrompt && !limitPrompt) {
-      return `Use the provided content delimited by triple quotes to answer questions.Your task is to answer the question using only the provided content. If the content does not contain the information needed to answer this question then simply write: "你的问题没有在知识库中体现".`;
+    if (!quotePrompt) {
+      return limitPrompt;
     }
-    return ``;
+    const defaultPrompt =
+      '三引号引用的内容是你的补充知识，它们是最新的，根据引用内容来回答我的问题。';
+    if (limitPrompt) {
+      return `${defaultPrompt}${limitPrompt}`;
+    }
+    return `${defaultPrompt}你仅回答引用包含的内容，如果问题不包含在引用中，你直接回复: "你的问题没有在知识库中体现"`;
   })();
 
   const messages: ChatItemType[] = [
@@ -261,6 +264,7 @@ function getChatMessages({
           }
         ]
       : []),
+    ...history,
     ...(limitText
       ? [
           {
@@ -269,7 +273,6 @@ function getChatMessages({
           }
         ]
       : []),
-    ...history,
     {
       obj: ChatRoleEnum.Human,
       value: userChatInput
