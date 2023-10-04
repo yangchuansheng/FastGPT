@@ -19,6 +19,7 @@
   --primary-100: var(--blue-100);
   --primary-200: var(--blue-200);
   --primary-300: var(--blue-300);
+  --primary-400: var(--blue-400);
   --primary-800: var(--blue-800);
   --primary-hsl: var(--blue-500-hsl);
   --primary-50-hsl: var(--blue-50-hsl);
@@ -99,7 +100,7 @@
   --bs-dark-border-subtle: #adb5bd;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-font-sans-serif: Inter;
+  --bs-font-sans-serif: LXGW WenKai Screen;
   --bs-font-monospace: JetBrains Mono;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
@@ -9575,7 +9576,7 @@ html {
   background-color: var(--body-bg); }
 
 body {
-  font-family: Inter;
+  font-family: LXGW WenKai Screen;
   overflow-x: hidden !important;
   font-size: 1rem;
   color: var(--body-color);
@@ -9702,6 +9703,11 @@ i.title-icon {
   max-width: 100%;
   height: auto; }
 
+.docs-content .main-content a svg {
+  vertical-align: middle;
+  padding-bottom: 0.25rem;
+  margin-left: 3px; }
+
 .docs-content .main-content ul {
   padding-left: 0; }
   .docs-content .main-content ul > li {
@@ -9760,7 +9766,6 @@ i.title-icon {
 
 .docs-content .main-content code {
   font-size: inherit;
-  color: var(--text-default);
   font-weight: 400;
   padding: 1px 2px;
   background: var(--inline-code-bg);
@@ -9769,14 +9774,11 @@ i.title-icon {
 
 .docs-content .main-content pre {
   margin: 0;
-  background-color: var(--code-block-bg) !important;
   border-radius: 4px;
   padding: 0; }
   .docs-content .main-content pre code {
-    color: #f5fbff;
     font-size: 0.8rem;
     display: block;
-    background: var(--code-block-bg);
     border: none;
     overflow-x: auto;
     line-height: 1.5;
@@ -10118,12 +10120,14 @@ i.title-icon {
 :root {
   --toc-link-hover-bg-color: var(--gray-300);
   --toc-mobile-btn-bg-color: var(--gray-100);
-  --toc-mobile-menu-bg-color: var(--white); }
+  --toc-mobile-menu-bg-color: var(--white);
+  --toc-mobile-link-hover-color: var(--primary); }
 
 [data-dark-mode] {
   --toc-link-hover-bg-color: var(--gray-700);
   --toc-mobile-btn-bg-color: var(--gray-900);
-  --toc-mobile-menu-bg-color: var(--body-bg); }
+  --toc-mobile-menu-bg-color: var(--body-bg);
+  --toc-mobile-link-hover-color: var(--primary-300); }
 
 .docs-toc-mobile {
   position: sticky;
@@ -10131,6 +10135,10 @@ i.title-icon {
   padding-left: calc(var(--bs-gutter-x) * 1.05);
   padding-right: calc(var(--bs-gutter-x) * 1.05);
   z-index: 20; }
+  .docs-toc-mobile a {
+    color: var(--text-default); }
+  .docs-toc-mobile a:hover {
+    color: var(--toc-mobile-link-hover-color); }
   .docs-toc-mobile .dropdown-toggle {
     margin-bottom: 16px;
     background: var(--toc-mobile-btn-bg-color);
@@ -10816,6 +10824,43 @@ table td:last-child, table th:last-child {
   margin-bottom: 0.8rem; }
 
 :root {
+  --tooltip-bg: var(--white);
+  --tooltip-border-color: var(--content-link-color);
+  --tooltip-drop-shadow-color: var(--gray-500);
+  --tooltip-link-color: var(--gray-700); }
+
+[data-dark-mode] {
+  --tooltip-bg: var(--dark-alt);
+  --tooltip-border-color: var(--primary-300);
+  --tooltip-drop-shadow-color: var(--gray-900);
+  --tooltip-link-color: var(--gray-500); }
+
+.tooltip {
+  --bs-tooltip-bg: var(--tooltip-bg);
+  --bs-tooltip-opacity: 1.0;
+  --bs-tooltip-font-size: 0.575rem;
+  --bs-tooltip-max-width: 300px; }
+
+.tooltip-inner {
+  text-align: left;
+  border: 2px solid var(--tooltip-border-color);
+  border-width: 2px 2px 2px 8px;
+  filter: drop-shadow(4px 4px 5px var(--tooltip-drop-shadow-color));
+  --bs-tooltip-border-radius: 4px; }
+  .tooltip-inner a {
+    color: var(--tooltip-link-color);
+    font-size: 0.85rem;
+    line-height: 1.55; }
+    .tooltip-inner a p {
+      margin-bottom: 0.2rem;
+      color: var(--text-muted);
+      font-weight: 600; }
+    .tooltip-inner a strong {
+      font-size: 0.975rem;
+      line-height: 2;
+      color: var(--text-default); }
+
+:root {
   --feature-icon-color: var(--primary);
   --feature-icon-faint: var(--gray-200);
   --feature-link-hover-bg-color: var(--primary); }
@@ -11212,11 +11257,14 @@ h4:hover a,
   visibility: visible;
   text-decoration: none; }
 
-/* PrismJS 1.29.0
 /**
- * prism.js lotus docs for JavaScript, CoffeeScript, CSS and HTML
- * Based on https://github.com/chriskempson/tomorrow-theme
- * @author Colin Wilson
+ * Lotus Docs theme
+ *
+ * Adapted from a theme based on:
+ * https://github.com/chriskempson/tomorrow-theme
+ *
+ * @author Colin Wilson <github.com/colinwilson>
+ * @version 1.0
  */
 :root {
   --prism-code-bg: #212d63;
@@ -11229,35 +11277,7 @@ h4:hover a,
 code[class*="language-"],
 pre[class*="language-"] {
   color: #f5fbff !important;
-  background: var(--prism-code-bg) !important;
-  border: none !important;
-  font-family: JetBrains Mono;
-  font-size: 0.8rem;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.5;
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  scrollbar-width: thin;
-  scrollbar-color: var(--prism-code-scrollbar-thumb-color) var(--prism-code-bg); }
-  code[class*="language-"]::-webkit-scrollbar,
-  pre[class*="language-"]::-webkit-scrollbar {
-    height: 5px;
-    background: var(--prism-code-bg); }
-  code[class*="language-"]::-webkit-scrollbar-thumb,
-  pre[class*="language-"]::-webkit-scrollbar-thumb {
-    background: var(--prism-code-scrollbar-thumb-color); }
+  background: var(--prism-code-bg) !important; }
 
 /* Code blocks */
 pre[class*="language-"] {
@@ -11273,6 +11293,19 @@ pre[class*="language-"] {
   padding: .1em;
   border-radius: .3em;
   white-space: normal; }
+
+.line-highlight:before,
+.line-highlight[data-end]:after {
+  background-color: var(--blue-400); }
+
+[data-copy-state="copy"] span:empty::before {
+  background-color: var(--gray-400); }
+
+[data-copy-state="copy"] span:empty:hover::before {
+  background-color: var(--white); }
+
+[data-copy-state="copy-success"] span:empty::before {
+  background-color: var(--emerald-200); }
 
 .token.comment,
 .token.block-comment,
@@ -11342,6 +11375,44 @@ pre[class*="language-"] {
 .token.inserted {
   color: green; }
 
+/* PrismJS 1.29.0 */
+code {
+  color: var(--text-default); }
+
+.docs-content .main-content pre {
+  background-color: var(--prism-code-bg) !important; }
+
+code[class*="language-"],
+pre[class*="language-"] {
+  border: none !important;
+  font-family: JetBrains Mono;
+  font-size: 0.8rem;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scrollbar-width: thin;
+  scrollbar-color: var(--prism-code-scrollbar-thumb-color) var(--prism-code-bg); }
+  code[class*="language-"]::-webkit-scrollbar,
+  pre[class*="language-"]::-webkit-scrollbar {
+    height: 5px;
+    background: var(--prism-code-bg); }
+  code[class*="language-"]::-webkit-scrollbar-thumb,
+  pre[class*="language-"]::-webkit-scrollbar-thumb {
+    background: var(--prism-code-scrollbar-thumb-color); }
+
 pre[data-line] {
   position: relative;
   padding: 0 !important; }
@@ -11382,7 +11453,6 @@ pre[data-line] {
   left: .6em;
   min-width: 1.5em;
   padding: 0 .5em;
-  background-color: var(--blue-400);
   color: #f5f2f0;
   font: bold 95%/1.3 sans-serif;
   text-align: center;
@@ -11505,13 +11575,9 @@ div.code-toolbar > .toolbar > .toolbar-item > button {
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='48' width='48' viewBox='0 0 48 48'%3E%3Cpath d='M9 43.95q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.8h3v30.15h23.7v3Zm6-6q-1.2 0-2.1-.9-.9-.9-.9-2.1v-28q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h22v-28H15v28Zm0 0v-28 28Z'/%3E%3C/svg%3E");
   -webkit-mask-size: contain;
   mask-size: contain;
-  background-color: var(--gray-400);
   display: block;
   height: 24px;
   width: 24px; }
-
-[data-copy-state="copy"] span:empty:hover::before {
-  background-color: var(--white); }
 
 [data-copy-state="copy-success"] span:empty::before {
   content: "";
@@ -11519,7 +11585,6 @@ div.code-toolbar > .toolbar > .toolbar-item > button {
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='48' width='48' viewBox='0 0 48 48'%3E%3Cpath d='M18.9 35.7 7.7 24.5l2.15-2.15 9.05 9.05 19.2-19.2 2.15 2.15Z'/%3E%3C/svg%3E");
   -webkit-mask-size: contain;
   mask-size: contain;
-  background-color: var(--emerald-200);
   display: block;
   height: 24px;
   width: 24px; }
@@ -11913,7 +11978,34 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
     width: 20.1rem;
     padding-left: 1rem; } }
 
-.docs-content .main-content img, .docs-content .main-content svg:not(.gitinfo svg) {
+/* Mermaid */
+.docs-content .main-content pre.mermaid {
+  background-color: transparent !important;
+  text-align: center !important; }
+  .docs-content .main-content pre.mermaid .messageText {
+    fill: var(--text-default) !important; }
+  .docs-content .main-content pre.mermaid .messageLine0,
+  .docs-content .main-content pre.mermaid .messageLine1 {
+    stroke: var(--text-default) !important; }
+  .docs-content .main-content pre.mermaid #arrowhead path,
+  .docs-content .main-content pre.mermaid #crosshead path {
+    fill: var(--text-default) !important;
+    stroke: var(--text-default) !important; }
+  .docs-content .main-content pre.mermaid .edgePaths path {
+    stroke: var(--text-default) !important; }
+  .docs-content .main-content pre.mermaid .marker {
+    fill: var(--text-default) !important;
+    stroke: var(--text-default) !important; }
+  .docs-content .main-content pre.mermaid .grid .tick {
+    stroke: var(--text-default) !important; }
+    .docs-content .main-content pre.mermaid .grid .tick text {
+      fill: var(--text-default) !important; }
+  .docs-content .main-content pre.mermaid line {
+    stroke: var(--text-default) !important; }
+  .docs-content .main-content pre.mermaid text {
+    fill: var(--text-default) !important; }
+
+.docs-content .main-content img, .docs-content .main-content svg:not(.gitinfo svg):not(a svg) {
   max-width: 80% !important;
   height: auto;
   display: block !important;
@@ -11934,5 +12026,75 @@ div.code-toolbar {
   position: absolute;
   width: 12px;
   z-index: 1; }
+
+li p {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem; }
+
+footer {
+  height: 118px !important; }
+
+/*
+footer a:hover {
+    text-decoration: none !important;
+}
+*/
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 1999; }
+
+/* 徽章样式 */
+.github-badge {
+  display: inline-block;
+  border-radius: 4px;
+  text-shadow: none;
+  font-size: 12px;
+  color: #fff;
+  line-height: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px; }
+
+.github-badge .badge-subject {
+  display: inline-block;
+  background-color: #4D4D4D;
+  padding: 4px 4px 4px 6px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px; }
+
+.github-badge .badge-value {
+  display: inline-block;
+  padding: 4px 6px 4px 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px; }
+
+.github-badge .bg-brightgreen {
+  background-color: #4DC820 !important; }
+
+.github-badge .bg-orange {
+  background-color: #FFA500 !important; }
+
+.github-badge .bg-yellow {
+  background-color: #D8B024 !important; }
+
+.github-badge .bg-blueviolet {
+  background-color: #8833D7 !important; }
+
+.github-badge .bg-pink {
+  background-color: #F26BAE !important; }
+
+.github-badge .bg-red {
+  background-color: #e05d44 !important; }
+
+.github-badge .bg-blue {
+  background-color: #007EC6 !important; }
+
+.github-badge .bg-lightgrey {
+  background-color: #9F9F9F !important; }
+
+.github-badge .bg-grey, .github-badge .bg-gray {
+  background-color: #555 !important; }
+
+.github-badge .bg-lightgrey, .github-badge .bg-lightgray {
+  background-color: #9f9f9f !important; }
 
 /*# sourceMappingURL=style.css.map */

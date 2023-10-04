@@ -1,5 +1,5 @@
 ---
-title: '部署 One API，实现多模型支持'
+title: '接入微软、ChatGLM、本地模型等'
 description: '通过接入 One API 来实现对各种大模型的支持'
 icon: 'Api'
 draft: false
@@ -7,9 +7,8 @@ toc: true
 weight: 730
 ---
 
-默认情况下，FastGPT 只配置了 GPT 的 3 个模型，如果你需要接入其他模型，需要进行一些额外配置。
-
-[One API](https://github.com/songquanpeng/one-api) 是一个 OpenAI 接口管理 & 分发系统，可以通过标准的 OpenAI API 格式访问所有的大模型，开箱即用。
+* 默认情况下，FastGPT 只配置了 GPT 的 3 个模型，如果你需要接入其他模型，需要进行一些额外配置。
+* [One API](https://github.com/songquanpeng/one-api) 是一个 OpenAI 接口管理 & 分发系统，可以通过标准的 OpenAI API 格式访问所有的大模型，开箱即用。
 
 FastGPT 可以通过接入 One API 来实现对各种大模型的支持。部署方法也很简单。
 
@@ -19,7 +18,7 @@ MySQL 版本支持多实例，高并发。
 
 直接点击以下按钮即可一键部署 👇
 
-[![](https://cdn.jsdelivr.us/gh/labring-actions/templates@main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Done-api)
+[![](https://fastly.jsdelivr.net/gh/labring-actions/templates@main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Done-api)
 
 部署完后会跳转「应用管理」，数据库在另一个应用「数据库」中。需要等待 1~3 分钟数据库运行后才能访问成功。
 
@@ -92,7 +91,7 @@ CHAT_API_KEY=sk-xxxxxx
 
 ### 2. 修改 FastGPT 配置文件
 
-可以在 `/client/src/data/config.json` 里找到配置文件（本地开发需要复制成 config.local.json），配置文件中有一项是对话模型配置：
+可以在 `/projects/app/src/data/config.json` 里找到配置文件（本地开发需要复制成 config.local.json），配置文件中有一项是对话模型配置：
 
 ```json
 "ChatModels": [
