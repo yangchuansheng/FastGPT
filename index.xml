@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>FastGPT</title><link>/</link><description>Recent content on FastGPT</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>快速了解 FastGPT</title><link>/docs/intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/intro/</guid><description>FastGPT 是一个基于 LLM 大语言模型的知识库问答系统，提供开箱即用的数据处理、模型调用等能力。同时可以通过 Flow 可视化进行工作流编排，从而实现复杂的问答场景！
+🤖
+FastGPT 在线使用：https://fastgpt.in
+FastGPT 能力 link1. 专属 AI 客服 link通过导入文档或已有问答对进行训练，让 AI 模型能根据你的文档以交互式对话方式回答问题。
+2. 简单易用的可视化界面 linkFastGPT 采用直观的可视化界面设计，为各种应用场景提供了丰富实用的功能。通过简洁易懂的操作步骤，可以轻松完成 AI 客服的创建和训练流程。
+3. 自动数据预处理 link提供手动输入、直接分段、LLM 自动处理和 CSV 等多种数据导入途径，其中“直接分段”支持通过 PDF、WORD、Markdown 和 CSV 文档内容作为上下文。FastGPT 会自动对文本数据进行预处理、向量化和 QA 分割，节省手动训练时间，提升效能。
+4. 工作流编排 link基于 Flow 模块的工作流编排，可以帮助你设计更加复杂的问答流程。例如查询数据库、查询库存、预约实验室等。
+5. 强大的 API 集成 linkFastGPT 对外的 API 接口对齐了 OpenAI 官方接口，可以直接接入现有的 GPT 应用，也可以轻松集成到企业微信、公众号、飞书等平台。
+FastGPT 特点 link 项目开源
+FastGPT 遵循附加条件 Apache License 2.0 开源协议，你可以 Fork 之后进行二次开发和发布。FastGPT 社区版将保留核心功能，商业版仅在社区版基础上使用 API 的形式进行扩展，不影响学习使用。
+独特的 QA 结构</description></item><item><title>快速上手</title><link>/docs/course/quick-start/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/course/quick-start/</guid><description>更多使用技巧，查看视屏教程
+知识库 link开始前，请准备一份测试电子文档，WORD，PDF，TXT，excel，markdown 都可以，比如公司休假制度，不涉密的销售说辞，产品知识等等。
+这里使用 FastGPT 中文 README 文件为例。
+首先我们需要创建一个知识库。
+知识库创建完之后我们需要上传一点内容。
+上传内容这里有四种模式：
+手动输入：手动输入问答对，是最精准的数据 QA 拆分：选择文本文件，让AI自动生成问答对 直接分段：选择文本文件，直接将其按分段进行处理 CSV 导入：批量导入问答对 这里，我们选择 QA 拆分，让 AI 自动生成问答，若问答质量不高，可以后期手动修改。
+点击上传后我们需要等待数据处理完成，等到我们上传的文件状态为可用。
+应用 link点击「应用」按钮来新建一个应用，这里有四个模板，我们选择「知识库 + 对话引导」。
+应用创建后来再应用详情页找到「知识库」模块，把我们刚刚创建的知识库添加进去。
+添加完知识库后记得点击「保存并预览」，这样我们的应用就和知识库关联起来了。
+然后我们就可以愉快的开始聊天啦。</description></item><item><title>Web 站点同步</title><link>/docs/course/websync/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/course/websync/</guid><description>该功能目前仅向商业版用户开放。
+什么是 Web 站点同步 linkWeb 站点同步利用爬虫的技术，可以通过一个入口网站，自动捕获同域名下的所有网站，目前最多支持200个子页面。出于合规与安全角度，FastGPT 仅支持静态站点的爬取，主要用于各个文档站点快速构建知识库。
+Tips: 国内的媒体站点基本不可用，公众号、csdn、知乎等。可以通过终端发送curl请求检测是否为静态站点，例如：
+curl https://doc.fastgpt.in/docs/intro/ 如何使用 link1. 新建知识库，选择 Web 站点同步 link 2. 点击配置站点信息 link 3. 填写网址和选择器 link 好了， 现在点击开始同步，静等系统自动抓取网站信息即可。
+创建应用，绑定知识库 link 选择器如何使用 link选择器是 HTML CSS JS 的产物，你可以通过选择器来定位到你需要抓取的具体内容，而不是整个站点。使用方式为：
+首先打开浏览器调试面板（通常是 F12，或者【右键 - 检查】） link 输入对应元素的选择器 link菜鸟教程 css 选择器，具体选择器的使用方式可以参考菜鸟教程。
+上图中，我们选中了一个区域，对应的是div标签，它有 data-prismjs-copy, data-prismjs-copy-success, data-prismjs-copy-error 三个属性，这里我们用到一个就够。所以选择器是： div[data-prismjs-copy]
+除了属性选择器，常见的还有类和ID选择器。例如：
+上图 class 里的是类名（可能包含多个类名，都是空格隔开的，选择一个即可），选择器可以为：.docs-content
+多选择器使用 link在开头的演示中，我们对 FastGPT 文档是使用了多选择器的方式来选择，通过逗号隔开了两个选择器。
+我们希望选中上图两个标签中的内容，此时就需要两组选择器。一组是：.docs-content .mb-0.d-flex，含义是 docs-content 类下同时包含 mb-0和d-flex 两个类的子元素；
+另一组是.docs-content div[data-prismjs-copy]，含义是docs-content 类下包含data-prismjs-copy属性的div元素。
+把两组选择器用逗号隔开即可：.docs-content .mb-0.d-flex, .docs-content div[data-prismjs-copy]</description></item><item><title>知识库搜索参数</title><link>/docs/course/data_search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/course/data_search/</guid><description>在知识库搜索的方式上，FastGPT提供了三种方式，分别为“语义检索”“增强语义检索”“混合检索”。
+搜索模式 link语义检索 link语义检索是通过向量距离，计算用户问题与知识库内容的距离，从而得出“相似度”，当然这并不是语文上的相似度，而是数学上的。
+优点：
+相近语义理解 跨多语言理解（例如输入中文问题匹配英文知识点） 多模态理解（文本，图片，音视频等） 缺点：
+依赖模型训练效果 精度不稳定 受关键词和句子完整度影响 全文检索 link才用传统的全文检索方式。适合查找关键的主谓语等。
+混合检索 link同时使用向量检索和全文检索，并通过 RRF 公式进行两个搜索结果合并，一般情况下搜索结果会更加丰富准确。
+由于混合检索后的查找范围很大，并且无法直接进行相似度过滤，通常需要进行利用重排模型进行一次结果重新排序，并利用重排的得分进行过滤。
+结果重排 link利用ReRank模型对搜索结果进行重排，绝大多数情况下，可以有效提高搜索结果的准确率。不过，重排模型与问题的完整度（主谓语齐全）有一些关系，通常会先走问题补全后再进行搜索-重排。重排后可以得到一个0-1的得分，代表着搜索内容与问题的相关度，该分数通常比向量的得分更加精确，可以根据得分进行过滤。
+FastGPT 会使用 RRF 对重排结果、向量搜索结果、全文检索结果进行合并，得到最终的搜索结果。
+引用上限 link每次搜索最多引用n个tokens的内容。
+之所以不采用top k，是发现在混合知识库（问答库、文档库）时，不同chunk的长度差距很大，会导致top k的结果不稳定，因此采用了tokens的方式进行引用上限的控制。
+最低相关度 link一个0-1的数值，会过滤掉一些低相关度的搜索结果。
+该值仅在语义检索或使用结果重排时生效。</description></item><item><title>高级编排介绍</title><link>/docs/workflow/intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/intro/</guid><description>FastGPT 从 V4 版本开始采用新的交互方式来构建 AI 应用。使用了 Flow 节点编排的方式来实现复杂工作流，提高可玩性和扩展性。但同时也提高了上手的门槛，有一定开发背景的用户使用起来会比较容易。
+查看视频教程
+什么是模块？ link在程序中，模块可以理解为一个个 Function 或者接口。可以理解为它就是一个步骤。将多个模块一个个拼接起来，即可一步步的去实现最终的 AI 输出。
+如下图，这是一个最简单的 AI 对话。它由用户输入的问题、聊天记录以及 AI 对话模块组成。
+执行流程如下：
+用户输入问题后，会向服务器发送一个请求，并携带问题。从而得到【用户问题】模块的输出。 根据设置的【最长记录数】来获取数据库中的记录数，从而得到【聊天记录】模块的输出。 经过上面两个流程，就得到了左侧两个蓝色点的结果。结果会被注入到右侧的【AI】对话模块。 【AI 对话】模块根据传入的聊天记录和用户问题，调用对话接口，从而实现回答。（这里的对话结果输出隐藏了起来，默认只要触发了对话模块，就会往客户端输出内容） 模块分类 link从功能上，模块可以分为 3 类：
+只读模块：全局变量、用户引导。 系统模块：聊天记录（无输入，直接从数据库取）、用户问题（流程入口）。 功能模块：知识库搜索、AI 对话等剩余模块。（这些模块都有输入和输出，可以自由组合）。 模块的组成 link每个模块会包含 3 个核心部分：固定参数、外部输入（左边有个圆圈）和输出（右边有个圆圈）。
+对于只读模块，只需要根据提示填写即可，不参与流程运行。
+对于系统模块，通常只有固定参数和输出，主要需要关注输出到哪个位置。
+对于功能模块，通常这 3 部分都是重要的，以下图的 AI 对话为例：
+对话模型、温度、回复上限、系统提示词和限定词为固定参数，同时系统提示词和限定词也可以作为外部输入，意味着如果你有输入流向了系统提示词，那么原本填写的内容就会被覆盖。 触发器、引用内容、聊天记录和用户问题则为外部输入，需要从其他模块的输出流入。 回复结束则为该模块的输出。 模块什么时候被执行？ link模块执行的原则：
+仅关心已连接的外部输入，即左边的圆圈被连接了。 当连接内容都有值时触发。 示例 1： link聊天记录模块会自动执行，因此聊天记录输入会自动赋值。当用户发送问题时，【用户问题】模块会输出值，此时【AI 对话】模块的用户问题输入也会被赋值。两个连接的输入都被赋值后，会执行 【AI 对话】模块。
+例子 2： link下图是一个知识库搜索例子。
+历史记录会流入【AI 对话】模块。 用户的问题会流入【知识库搜索】和【AI 对话】模块，由于【AI 对话】模块的触发器和引用内容还是空，此时不会执行。 【知识库搜索】模块仅一个外部输入，并且被赋值，开始执行。 【知识库搜索】结果为空时，“搜索结果不为空”的值为空，不会输出，因此【AI 对话】模块会因为触发器没有赋值而无法执行。而“搜索结果为空”会有输出，流向指定回复的触发器，因此【指定回复】模块进行输出。 【知识库搜索】结果不为空时，“搜索结果不为空”和“引用内容”都有输出，会流向【AI 对话】，此时【AI 对话】的 4 个外部输入都被赋值，开始执行。 如何连接模块 link 为了方便识别不同输入输出的类型，FastGPT 给每个模块的输入输出连接点赋予不同的颜色，你可以把相同颜色的连接点连接起来。其中，灰色代表任意类型，可以随意连接。 位于左侧的连接点为输入，右侧的为输出，连接只能将一个输入和输出连接起来，不能连接“输入和输入”或者“输出和输出”。 可以点击连接线中间的 x 来删除连接线。 可以左键点击选中连接线 如何阅读？ link 建议从左往右阅读。 从 用户问题 模块开始。用户问题模块，代表的是用户发送了一段文本，触发任务开始。 关注【AI 对话】和【指定回复】模块，这两个模块是输出答案的地方。</description></item><item><title>AI 对话</title><link>/docs/workflow/modules/ai_chat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/ai_chat/</guid><description>特点 link 可重复添加（复杂编排时防止线太乱，可以更美观） 有外部输入 有静态配置 触发执行 核心模块 参数说明 link对话模型 link可以通过 config.json 配置可选的对话模型，通过 one-api 来实现多模型接入。
+温度 &amp;amp; 回复上限 link 温度：越低回答越严谨，少废话（实测下来，感觉差别不大） 回复上限：最大回复 token 数量（只有 OpenAI 模型有效）。注意，是回复！不是总 tokens。 系统提示词（可被外部输入覆盖） link被放置在上下文数组的最前面，role 为 system，用于引导模型。具体用法参考各搜索引擎的教程~
+限定词（可被外部输入覆盖） link与系统提示词类似，role 也是 system 类型，只不过位置会被放置在问题前，拥有更强的引导作用。
+引用内容 link接收一个外部输入的数组，主要是由【知识库搜索】模块生成，也可以由 HTTP 模块从外部引入。数据结构示例如下：
+type DataType = { dataset_id?: string; id?: string; q: string; a: string; source?: string; }; // 如果是外部引入的内容，尽量不要携带 dataset_id 和 id const quoteList: DataType[] = [ { dataset_id: &amp;#39;11&amp;#39;, id: &amp;#39;222&amp;#39;, q: &amp;#39;你还&amp;#39;, a: &amp;#39;哈哈&amp;#39;, source: &amp;#39;&amp;#39; }, { dataset_id: &amp;#39;11&amp;#39;, id: &amp;#39;333&amp;#39;, q: &amp;#39;你还&amp;#39;, a: &amp;#39;哈哈&amp;#39;, source: &amp;#39;&amp;#39; }, { dataset_id: &amp;#39;11&amp;#39;, id: &amp;#39;444&amp;#39;, q: &amp;#39;你还&amp;#39;, a: &amp;#39;哈哈&amp;#39;, source: &amp;#39;&amp;#39; } ]; 完整上下文组成 link最终发送给 LLM 大模型的数据是一个数组，内容和顺序如下：</description></item><item><title>内容提取</title><link>/docs/workflow/modules/content_extract/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/content_extract/</guid><description>特点 link 可重复添加 有外部输入 需要手动配置 触发执行 function_call 模块 核心模块 功能 link从文本中提取结构化数据，通常是配合 HTTP 模块实现扩展。也可以做一些直接提取操作，例如：翻译。
+参数说明 link提取要求描述 link顾名思义，给模型设置一个目标，需要提取哪些内容。
+示例 1
+你是实验室预约助手，从对话中提取出姓名，预约时间，实验室号。当前时间 {{cTime}}
+示例 2
+你是谷歌搜索助手，从对话中提取出搜索关键词
+示例 3
+将我的问题直接翻译成英文，不要回答问题
+历史记录 link通常需要一些历史记录，才能更完整的提取用户问题。例如上图中需要提供姓名、时间和实验室名，用户可能一开始只给了时间和实验室名，没有提供自己的姓名。再经过一轮缺失提示后，用户输入了姓名，此时需要结合上一次的记录才能完整的提取出 3 个内容。
+目标字段 link目标字段与提取的结果相对应，从上图可以看到，每增加一个字段，输出会增加一个对应的出口。
+key: 字段的唯一标识，不可重复！ 字段描述：描述该字段是关于什么的，例如：姓名、时间、搜索词等等。 必须：是否强制模型提取该字段，可能提取出来是空字符串。 输出介绍 link 字段完全提取：说明用户的问题中包含需要提取的所有内容。 提取字段缺失：与 “字段完全提取” 对立，有缺失提取的字段时触发。 完整提取结果: 一个 JSON 字符串，包含所有字段的提取结果。 目标字段提取结果：类型均为字符串。</description></item><item><title>用户引导</title><link>/docs/workflow/modules/guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/guide/</guid><description>特点 link 仅可添加 1 个 无外部输入 不参与实际调度 如图，可以在用户提问前给予一定引导。并可以设置引导问题。</description></item><item><title>自定义反馈</title><link>/docs/workflow/modules/custom_feedback/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/custom_feedback/</guid><description>该模块为临时模块，后续会针对该模块进行更全面的设计。
+特点 link 可重复添加 无外部输入 自动执行 介绍 link自定义反馈模块，可以为你的对话增加一个反馈标记，从而方便在后台更好的分析对话的数据。
+在调试模式下，不会记录反馈内容，而是直接提示: 自动反馈测试: 反馈内容。
+在对话模式（对话、分享窗口、带 chatId 的 API 调用）时，会将反馈内容记录到对话日志中。（会延迟60s记录）
+作用 link自定义反馈模块的功能类似于程序开发的埋点，便于你观测的对话中的数据。</description></item><item><title>新 HTTP 模块</title><link>/docs/workflow/modules/http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/http/</guid><description>特点 link 可重复添加 有外部输入 手动配置 触发执行 核中核模块 介绍 linkHTTP 模块会向对应的地址发送一个 POST/GET 请求，携带部分系统参数及自定义参数，并接收一个 JSON 响应值，字段也是自定义。
+你还可以通过 JSON 传入自定义的请求头。 POST 请求中，数据会被放置在 body 中。 GET 请求中，数据会被放置在 query 中。 在出入参数中，你都可以通过 xxx.xxx 来代表嵌套的对象。 参数结构 link系统参数说明 link appId: 应用的ID chatId: 当前对话的ID，测试模式下不存在。 responseChatItemId: 当前对话中，响应的消息ID，测试模式下不存在。 variables: 当前对话的全局变量。 data: 自定义传递的参数。 嵌套对象使用 link入参
+假设我们设计了3个输入。
+user.name (string) user.age (number) type (string) 最终组成的对象为:
+{ &amp;#34;user&amp;#34;: { &amp;#34;name&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;age&amp;#34;: &amp;#34;&amp;#34; }, &amp;#34;type&amp;#34;: &amp;#34;&amp;#34; } 出参
+假设接口的输出结构为:
+{ &amp;#34;message&amp;#34;: &amp;#34;测试&amp;#34;, &amp;#34;data&amp;#34;:{ &amp;#34;name&amp;#34;: &amp;#34;name&amp;#34;, &amp;#34;age&amp;#34;: 10 } } 那么，自定出参的key可以设置为:</description></item><item><title>用户问题</title><link>/docs/workflow/modules/input/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/input/</guid><description>特点 link 可重复添加（防止复杂编排时线太乱，重复添加可以更美观） 无外部输入 流程入口 自动执行</description></item><item><title>知识库搜索</title><link>/docs/workflow/modules/dataset_search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/dataset_search/</guid><description>特点 link 可重复添加（复杂编排时防止线太乱，可以更美观） 有外部输入 有静态配置 触发执行 核心模块 参数说明 link输入 - 关联的知识库 link可以选择一个或多个相同向量模型的知识库，用于向量搜索。
+输入 - 相似度 link学名称为距离，两个向量之间距离，可以认为是两个向量的相似度，又可以映射成文本之间的相似度。
+需要注意的是，不同的向量模型之间的相似度是不能比较的，因为他们的距离值计算出来差距很大。例如，openai 的 embedding 模型，通常 0.8 以上的才是较为准确的内容，而 M3E 模型则是 0.35。
+输入 - 单次搜索上限 link每次触发搜索模块时，最多取 n 条作为最终引用，又称 topN。需要注意的是，取了 n 条引用不代表对话模型都可以使用，还会受对话模型最大 Tokens 的影响。
+输出 - 搜索结果 link输出部分给了两个 boolean 类型的搜索结果，以便根据搜索结果进行不同的处理，通常会有下方两个处理方式：
+直接回复特定内容 对接普通的 gpt 当然，你也可以连接到 HTTP 模块，从而实现无法从知识搜索到内容时，去进行联网搜索或者维基百科搜索。
+输出 - 引用内容 link以数组格式输出引用，长度可以为 0。意味着，即使没有搜索到内容，这个输出链路也会走通。</description></item><item><title>问题分类</title><link>/docs/workflow/modules/question_classify/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/question_classify/</guid><description>特点 link 可重复添加 有外部输入 需要手动配置 触发执行 function_call 模块 功能 link可以将用户的问题进行分类，分类后执行不同操作。在一些较模糊的场景中，分类效果不是很明显。
+参数说明 link系统提示词 link被放置在对话最前面，可用于补充说明分类内容的定义。例如问题会被分为：
+打招呼 Laf 常见问题 其他问题 由于 Laf 不是一个明确的东西，需要给它一个定义，此时提示词里可以填入 Laf 的定义：
+Laf 是云开发平台，可以快速的开发应用 Laf 是一个开源的 BaaS 开发平台（Backend as a Service) Laf 是一个开箱即用的 serverless 开发平台 Laf 是一个集「函数计算」、「数据库」、「对象存储」等于一身的一站式开发平台 Laf 可以是开源版的腾讯云开发、开源版的 Google Firebase、开源版的 UniCloud 聊天记录 link适当增加一些聊天记录，可以联系上下文进行分类。
+用户问题 link用户输入的内容。
+分类内容 link依然以这 3 个分类为例，可以看到最终组成的 Function。其中返回值由系统随机生成，不需要关心。
+打招呼 Laf 常见问题 其他问题 const agentFunction = { name: agentFunName, description: &amp;#39;判断用户问题的类型属于哪方面，返回对应的枚举字段&amp;#39;, parameters: { type: &amp;#39;object&amp;#39;, properties: { type: { type: &amp;#39;string&amp;#39;, description: `打招呼，返回: abc；Laf 常见问题，返回：vvv；其他问题，返回：aaa` enum: [&amp;#34;abc&amp;#34;,&amp;#34;vvv&amp;#34;,&amp;#34;aaa&amp;#34;] } }, required: [&amp;#39;type&amp;#39;] } }; 上面的 Function 必然会返回 type = abc，vvv，aaa 其中一个值，从而实现分类判断。</description></item><item><title>指定回复</title><link>/docs/workflow/modules/reply/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/reply/</guid><description>特点 link 可重复添加（防止复杂编排时线太乱，重复添加可以更美观） 可手动输入 可外部输入 会输出结果给客户端 制定回复模块通常用户特殊状态回复，当然你也可以像图 2 一样，实现一些比较骚的操作~ 触发逻辑非常简单：
+一种是写好回复内容，通过触发器触发。 一种是不写回复内容，直接由外部输入触发，并回复输入的内容。 图 1 图 2</description></item><item><title>触发器</title><link>/docs/workflow/modules/trigger/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/trigger/</guid><description>细心的同学可以发现，在每个功能模块里都会有一个叫【触发器】的外部输入，并且是 any 类型。
+它的核心作用就是控制模块的执行时机，以下图两个知识库搜索中的【AI 对话】模块为例子：
+图 1 图 2 【知识库搜索】模块中，由于引用内容始终会有输出，会导致【AI 对话】模块的引用内容输入无论有没有搜到内容都会被赋值。如果此时不连接触发器（图 2），在搜索结束后必定会执行【AI 对话】模块。
+有时候，你可能希望空搜索时候进行额外处理，例如：回复固定内容、调用其他提示词的 GPT、发送一个 HTTP 请求…… 此时就需要用到触发器，需要将 搜索结果不为空 和 触发器 连接起来。
+当搜索结果为空时，【知识库搜索】模块不会输出 搜索结果不为空 的结果，因此 【AI 对话】 模块的触发器始终为空，便不会执行。
+总之，记住模块执行的逻辑就可以灵活的使用触发器：外部输入字段（有连接的才有效）全部被赋值时才会被执行。</description></item><item><title>全局变量</title><link>/docs/workflow/modules/variable/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/variable/</guid><description>特点 link 仅可添加 1 个 需要手动配置 对其他模块有影响 可作为用户引导 说明 link可以在对话前设置一些问题，让用户输入或选择，并将用户输入/选择的结果注入到其他模块中。目前仅会注入到 string 类型的数据里（对应蓝色圆圈的输入）。
+如下图，定义了两个变量：目标语言和下拉框测试（忽略）
+用户在对话前会被要求先填写目标语言，配合用户引导，我们就构建了一个简单的翻译机器人。目标语言的 key：language 被写入到【AI 对话】模块的限定词里。
+通过完整对话记录我们可以看到，实际的限定词从：“将我的问题直接翻译成{{language}}” 变成了 “将我的问题直接翻译成英语”，因为 {{language}} 被变量替换了。
+系统级变量 link除了用户自定义设置的变量外，还会有一些系统变量：
+cTime: 当前时间。例如：2023/3/3 20:22</description></item><item><title>判断器</title><link>/docs/workflow/modules/tfswitch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/tfswitch/</guid><description>特点 link 可重复添加 有外部输入 触发执行 功能 link对任意输入内容进行 True False 输出，默认情况下，当传入的内容为 false, undefined, null,0,none 时，会输出 false。
+也可以增加自定义规则来补充输出 false 的内容，每行代表一个匹配规则，支持正则表达式。
+根据上方示例图的匹配规则，当我们输入123 hi 你好 和任意手机号码时（正则匹配）同样也会输出 False 。
+作用 link适用场景有：让大模型做判断后输出固定内容，根据大模型回复内容判断是否触发后续模块。</description></item><item><title>文本加工</title><link>/docs/workflow/modules/text_editor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/text_editor/</guid><description>特点 link 可重复添加 有外部输入 触发执行 手动配置 功能 link对输入文本进行固定加工处理，入参仅支持字符串和数字格式，入参以变量形式使用在文本编辑区域。
+根据上方示例图的处理方式，对任何输入都会在前面拼接“我的问题是：”。
+作用 link给任意模块输入自定格式文本，或处理 AI 模块系统提示词。
+示例 link 接入谷歌搜索</description></item><item><title>问题补全</title><link>/docs/workflow/modules/coreferenceresolution/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/coreferenceresolution/</guid><description>特点 link 可重复添加 有外部输入 触发执行 背景 link在 RAG 中，我们需要根据输入的问题去数据库里执行 embedding 搜索，查找相关的内容，从而查找到相似的内容（简称知识库搜索）。
+在搜索的过程中，尤其是连续对话的搜索，我们通常会发现后续的问题难以搜索到合适的内容，其中一个原因是知识库搜索只会使用“当前”的问题去执行。看下面的例子：
+用户在提问“第二点是什么”的时候，只会去知识库里查找“第二点是什么”，压根查不到内容。实际上需要查询的是“QA结构是什么”。因此我们需要引入一个【问题补全】模块，来对用户当前的问题进行补全，从而使得知识库搜索能够搜索到合适的内容。使用补全后效果如下：
+功能 link调用 AI 去对用户当前的问题进行补全。目前主要是补全“指代”词，使得检索词更加的完善可靠，从而增强上下文连续对话的知识库搜索能力。
+遇到最大的难题在于：模型对于【补全】的概念可能不清晰，且对于长上下文往往无法准确的知道应该如何补全。
+示例 link 接入谷歌搜索</description></item><item><title>固定开头和结尾内容</title><link>/docs/workflow/examples/fixingevidence/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/examples/fixingevidence/</guid><description>如上图，可以通过指定回复编排一个固定的开头和结尾内容。
+模块编排 link复制下面配置，点击「高级编排」右上角的导入按键，导入该配置。
+编排配置 [ { &amp;#34;moduleId&amp;#34;: &amp;#34;userChatInput&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;用户问题(对话入口)&amp;#34;, &amp;#34;flowType&amp;#34;: &amp;#34;questionInput&amp;#34;, &amp;#34;position&amp;#34;: { &amp;#34;x&amp;#34;: 59.03170043915989, &amp;#34;y&amp;#34;: 1604.8595605938747 }, &amp;#34;inputs&amp;#34;: [ { &amp;#34;key&amp;#34;: &amp;#34;userChatInput&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;systemInput&amp;#34;, &amp;#34;label&amp;#34;: &amp;#34;用户问题&amp;#34;, &amp;#34;connected&amp;#34;: true } ], &amp;#34;outputs&amp;#34;: [ { &amp;#34;key&amp;#34;: &amp;#34;userChatInput&amp;#34;, &amp;#34;label&amp;#34;: &amp;#34;用户问题&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;source&amp;#34;, &amp;#34;valueType&amp;#34;: &amp;#34;string&amp;#34;, &amp;#34;targets&amp;#34;: [ { &amp;#34;moduleId&amp;#34;: &amp;#34;chatModule&amp;#34;, &amp;#34;key&amp;#34;: &amp;#34;userChatInput&amp;#34; }, { &amp;#34;moduleId&amp;#34;: &amp;#34;ymqh0t&amp;#34;, &amp;#34;key&amp;#34;: &amp;#34;switch&amp;#34; } ] } ] }, { &amp;#34;moduleId&amp;#34;: &amp;#34;history&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;聊天记录&amp;#34;, &amp;#34;flowType&amp;#34;: &amp;#34;historyNode&amp;#34;, &amp;#34;position&amp;#34;: { &amp;#34;x&amp;#34;: 38.</description></item><item><title>接入谷歌搜索</title><link>/docs/workflow/examples/google_search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/examples/google_search/</guid><description>如上图，利用 HTTP 模块，你可以外接一个搜索引擎作为AI回复的参考资料。这里以调用 Google Search API 为例。注意：本文主要是为了介绍 HTTP 模型，具体的搜索效果需要依赖提示词和搜索引擎，尤其是【搜索引擎】，简单的搜索引擎无法获取更详细的内容，这部分可能需要更多的调试。
+注册 Google Search API link参考这篇文章，每天可以免费使用 100 次。
+写一个 Google Search 接口 link这里用 Laf 快速实现一个接口，即写即发布，无需部署。务必打开 POST 请求方式。
+Laf 谷歌搜索Demo import cloud from &amp;#39;@lafjs/cloud&amp;#39; const googleSearchKey = &amp;#34;&amp;#34; const googleCxId = &amp;#34;&amp;#34; const baseurl = &amp;#34;https://www.googleapis.com/customsearch/v1&amp;#34; type RequestType = { data: { searchKey: string } } export default async function (ctx: FunctionContext) { const { data: { searchKey } } = ctx.body as RequestType if (!</description></item><item><title>实验室预约</title><link>/docs/workflow/examples/lab_appointment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/examples/lab_appointment/</guid><description>本示例演示了利用问题分类、内容提取和 HTTP 模块实现数据库的 CRUD 操作。以一个实验室预约为例，用户可以通过对话系统预约、取消、修改预约和查询预约记录。
+编排流程解析 link编排 Tips：从左往右编辑流程；尽量不要使线交叉。
+1. 全局变量使用 link通过设计一个全局变量，让用户输入姓名，模拟用户身份信息。实际使用过程中，通常是直接通过嵌入 Token 来标记用户身份。
+2. 问题分类 link 如上图，用户问题作为对话的起点，流入【问题分类模块】，根据用户问题的内容，判断用户是询问实验室相关问题、预约实验室或其他问题。如果用户询问的是非实验问题，会直接拒绝回复内容。再根据问题是属于询问实验室相关/预约类问题，执行不同的流程。
+🤗
+Tips: 这里需要增加适当的上下文，方便模型更好的判断属于哪个类别~
+3. 实验室介绍的知识库搜索 link这里不多介绍，标准的走了一套知识库搜索流程。
+4. 内容提取 link 内容提取是 LLM 带来的十分重要的能力，可以从自然语言中提取出结构化的数据，从而方便进行逻辑处理。
+这里用了 2 个提取模块，一个用于提取预约时间和实验室名称；一个用于提取预约行为。
+提取时间和实验室名称时候，需要注意把必填关掉，否则模型可能会伪造一些内容，同时再对数据处理时候，需要进行判空处理。
+最后将两个提取的结果，通过 HTTP 模块发送到后端进行数据库的操作。
+5. HTTP模块执行预约操作 linkHTTP 模块允许你调用任意 GET/POST 类型的 HTTP 接口，从而实现一些复杂的业务逻辑。这里我们调用了一个预约实验室的接口，传入的是信息提取模块的结果和预约行为。
+具体的入参结构可以参考HTTP模块，实在不行在接口里多打印 Debug。
+响应值也很简单，只需要返回一个 JSON 对象 即可。注意！是对象，不是字符串。
+总结 link 问题分类可以在简单的场景下使用，判断用户的问题类型，从而实现不同的路线。 可以通过内容提取模块，实现自然语言转结构化数据，从而实现复杂的逻辑操作。 内容提取 + HTTP 模块允许你无限扩展。 难点
+模型对连续对话的分类和提取能力不足 附件 link编排配置 link可直接复制，导入到 FastGPT 中。
+编排配置 [ { &amp;#34;moduleId&amp;#34;: &amp;#34;userChatInput&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;用户问题(对话入口)&amp;#34;, &amp;#34;avatar&amp;#34;: &amp;#34;/imgs/module/userChatInput.</description></item><item><title>全能助手</title><link>/docs/workflow/examples/versatile_assistant/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/examples/versatile_assistant/</guid><description>众所周知 GPT 只是一个语言模型，功能上有很多局限，但只要综合利用高级编排各模块功能，就可以轻松突破原有 GPT 的局限，实现更多功能。
+当然，所谓“全能助手”只是一个遥远的设想，高级编排的玩法有很大的可能性，本文只是扩展了诸如【天气查询】、【微博热搜查询】的功能，主要还是希望大家能通过案例来了解下高级编排的思路，然后可以分享更多有意思的玩法。
+简要介绍一下“全能助手”的思路 link思路说来也简单，以下分别用文字和图片两种方式介绍下
+文字描述： 对于用户输入的问题，通过【问题分类】模块进行区分，分出【询问天气】、【微博热搜】、【其他问题】等 对于【询问天气】的情况，调用第三方 API 查询天气（后文会介绍），将查询到的 json 结果丢给【AI 对话】模块，让它根据用户问题来给出回答 对于【微博热搜】的情况，同理，也是调的第三方 API 对于【其他问题】的情况，直接走【AI 对话】模块就好了，跟普通的 GPT 聊天一样 流程图（方便理解）： 详细步骤 link以下对于相同的步骤不会赘述，对于第三方接口只介绍了【天气查询】，而【微博热榜】跟【天气查询】的步骤是一样的，只是接口和提示词不同，所以不再赘述。后文会发出完整的高级编排配置，可以导入自行查看~
+第三方 API 获取 link案例中第三方接口来源目前都是在 https://api.vvhan.com/ 里获得，里面有许多花里胡哨的接口可以用，当然你有其他的接口可以对接也可以，反正主要是返回的数据。
+举个查询天气的例子：
+找到查询天气的 API 接口 由于我想要的效果是用户可以随意问接下来一周内任意时间的天气（比如用户可以问“接下来一周的天气适合晾被子吗”），所以选择了上面接口的这个格式：https://api.vvhan.com/api/weather?city=徐州&amp;amp;type=week 返回 json：
+{&amp;#34;success&amp;#34;:true,&amp;#34;city&amp;#34;:&amp;#34;徐州市&amp;#34;,&amp;#34;data&amp;#34;:[{&amp;#34;date&amp;#34;:&amp;#34;2023-09-21&amp;#34;,&amp;#34;week&amp;#34;:&amp;#34;星期四&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;多云&amp;#34;,&amp;#34;low&amp;#34;:&amp;#34;14°C&amp;#34;,&amp;#34;high&amp;#34;:&amp;#34;24°C&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;东北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;,&amp;#34;night&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;多云&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;南风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;}},{&amp;#34;date&amp;#34;:&amp;#34;2023-09-22&amp;#34;,&amp;#34;week&amp;#34;:&amp;#34;星期五&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;阴&amp;#34;,&amp;#34;low&amp;#34;:&amp;#34;19°C&amp;#34;,&amp;#34;high&amp;#34;:&amp;#34;25°C&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;东风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;,&amp;#34;night&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;阴&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;东风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;}},{&amp;#34;date&amp;#34;:&amp;#34;2023-09-23&amp;#34;,&amp;#34;week&amp;#34;:&amp;#34;星期六&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;小雨&amp;#34;,&amp;#34;low&amp;#34;:&amp;#34;20°C&amp;#34;,&amp;#34;high&amp;#34;:&amp;#34;23°C&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;东北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;,&amp;#34;night&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;小雨&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;东北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;}},{&amp;#34;date&amp;#34;:&amp;#34;2023-09-24&amp;#34;,&amp;#34;week&amp;#34;:&amp;#34;星期日&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;中雨&amp;#34;,&amp;#34;low&amp;#34;:&amp;#34;20°C&amp;#34;,&amp;#34;high&amp;#34;:&amp;#34;23°C&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;东风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;,&amp;#34;night&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;中雨&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;东北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;}},{&amp;#34;date&amp;#34;:&amp;#34;2023-09-25&amp;#34;,&amp;#34;week&amp;#34;:&amp;#34;星期一&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;小雨&amp;#34;,&amp;#34;low&amp;#34;:&amp;#34;20°C&amp;#34;,&amp;#34;high&amp;#34;:&amp;#34;24°C&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;,&amp;#34;night&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;阴&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;}},{&amp;#34;date&amp;#34;:&amp;#34;2023-09-26&amp;#34;,&amp;#34;week&amp;#34;:&amp;#34;星期二&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;阴&amp;#34;,&amp;#34;low&amp;#34;:&amp;#34;21°C&amp;#34;,&amp;#34;high&amp;#34;:&amp;#34;27°C&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;,&amp;#34;night&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;阴&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;}},{&amp;#34;date&amp;#34;:&amp;#34;2023-09-27&amp;#34;,&amp;#34;week&amp;#34;:&amp;#34;星期三&amp;#34;,&amp;#34;type&amp;#34;:&amp;#34;阴&amp;#34;,&amp;#34;low&amp;#34;:&amp;#34;21°C&amp;#34;,&amp;#34;high&amp;#34;:&amp;#34;25°C&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;东北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;,&amp;#34;night&amp;#34;:{&amp;#34;type&amp;#34;:&amp;#34;阴&amp;#34;,&amp;#34;fengxiang&amp;#34;:&amp;#34;北风&amp;#34;,&amp;#34;fengli&amp;#34;:&amp;#34;3级&amp;#34;}}]} 由于 FastGPT 的 【http 模块】，对于返回的 json 是以对象形式接收，而我们期望得到的是上述 json 中的“data”字段，而“data”又是数组格式，无法直接丢给【AI 对话】模块（我丢过，非字符串格式报错了，不知道后面会不会更新），所以需要对其做一层中转，将“data”字段转成字符串格式。思路如此，中转方式多样，这里介绍我自己的做法：用 python 起一个服务，来负责对 API 的中转，代码如下（包含了天气接口和微博热搜接口）： from flask import Flask, request, Response import requests import json app = Flask(__name__) @app.route(&amp;#39;/weather&amp;#39;, methods=[&amp;#39;GET&amp;#39;,&amp;#39;POST&amp;#39;]) def weather(): if request.</description></item><item><title>AI 高级配置说明</title><link>/docs/use-cases/ai_settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/ai_settings/</guid><description>在 FastGPT 的 AI 对话模块中，有一个 AI 高级配置，里面包含了 AI 模型的参数配置，本文详细介绍这些配置的含义。
+返回AI内容 link这是一个开关，打开的时候，当 AI 对话模块运行时，会将其输出的内容返回到浏览器（API响应）；如果关闭，AI 输出的内容不会返回到浏览器，但是生成的内容仍可以通过【AI回复】进行输出。你可以将【AI回复】连接到其他模块中。
+温度 link可选范围0-10，约大代表生成的内容约自由扩散，越小代表约严谨。调节能力有限，知识库问答场景通常设置为0。
+回复上限 link控制 AI 回复的最大 Tokens，较小的值可以一定程度上减少 AI 的废话，但也可能导致 AI 回复不完整。
+引用模板 &amp;amp; 引用提示词 link这两个参数与知识库问答场景相关，可以控制知识库相关的提示词。
+AI 对话消息组成 link想使用明白这两个变量，首先要了解传递传递给 AI 模型的消息格式。它是一个数组，FastGPT 中这个数组的组成形式为：
+[ 内置提示词（config.json 配置，一般为空） 系统提示词 （用户输入的提示词） 历史记录 问题（由引用提示词、引用模板和用户问题组成） ] 🍅
+Tips: 可以通过点击上下文按键查看完整的上下文组成，便于调试。
+引用模板和提示词设计 link引用模板和引用提示词通常是成对出现，引用提示词依赖引用模板。
+FastGPT 知识库采用 QA 对(不一定都是问答格式，仅代表两个变量)的格式存储，在转义成字符串时候会根据引用模板来进行格式化。知识库包含多个可用变量： q, a, sourceId（数据的ID）, index(第n个数据), source(数据的集合名、文件名)，score(距离得分，0-1) 可以通过 {{q}} {{a}} {{sourceId}} {{index}} {{source}} {{score}} 按需引入。下面一个模板例子：
+可以通过 知识库结构讲解 了解详细的知识库的结构。
+引用模板 link {instruction:&amp;#34;{{q}}&amp;#34;,output:&amp;#34;{{a}}&amp;#34;,source:&amp;#34;{{source}}&amp;#34;} 搜索到的知识库，会自动将 q,a,source 替换成对应的内容。每条搜索到的内容，会通过 \n 隔开。例如：</description></item><item><title>知识库结构讲解</title><link>/docs/use-cases/datasetengine/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/datasetengine/</guid><description>理解向量 linkFastGPT 采用了 RAG 中的 Embedding 方案构建知识库，要使用好 FastGPT 需要简单的理解Embedding向量是如何工作的及其特点。
+人类的文字、图片、视频等媒介是无法直接被计算机理解的，要想让计算机理解两段文字是否有相似性、相关性，通常需要将它们转成计算机可以理解的语言，向量是其中的一种方式。
+向量可以简单理解为一个数字数组，两个向量之间可以通过数学公式得出一个距离，距离越小代表两个向量的相似度越大。从而映射到文字、图片、视频等媒介上，可以用来判断两个媒介之间的相似度。向量搜索便是利用了这个原理。
+而由于文字是有多种类型，并且拥有成千上万种组合方式，因此在转成向量进行相似度匹配时，很难保障其精确性。在向量方案构建的知识库中，通常使用topk召回的方式，也就是查找前k个最相似的内容，丢给大模型去做更进一步的语义判断、逻辑推理和归纳总结，从而实现知识库问答。因此，在知识库问答中，向量搜索的环节是最为重要的。
+影响向量搜索精度的因素非常多，主要包括：向量模型的质量、数据的质量（长度，完整性，多样性）、检索器的精度（速度与精度之间的取舍）。与数据质量对应的就是检索词的质量。
+检索器的精度比较容易解决，向量模型的训练略复杂，因此数据和检索词质量优化成了一个重要的环节。
+FastGPT 中向量的结构设计 linkFastGPT 采用了 PostgresSQL 的 PG Vector 插件作为向量检索器，索引为HNSW。且PostgresSQL仅用于向量检索，MongoDB用于其他数据的存取。
+在PostgresSQL的表中，设置一个 index 字段用于存储向量，以及一个data_id用于在MongoDB中寻找对应的映射值。多个index可以对应一组data_id，也就是说，一组向量可以对应多组数据。在进行检索时，相同数据会进行合并。
+多向量的目的和使用方式 link在一组向量中，内容的长度和语义的丰富度通常是矛盾的，无法兼得。因此，FastGPT 采用了多向量映射的方式，将一组数据映射到多组向量中，从而保障数据的完整性和语义的丰富度。
+你可以为一组较长的文本，添加多组向量，从而在检索时，只要其中一组向量被检索到，该数据也将被召回。
+提高向量搜索精度的方法 link 更好分词分段：当一段话的结构和语义是完整的，并且是单一的，精度也会提高。因此，许多系统都会优化分词器，尽可能的保障每组数据的完整性。 精简index的内容，减少向量内容的长度：当index的内容更少，更准确时，检索精度自然会提高。但与此同时，会牺牲一定的检索范围，适合答案较为严格的场景。 丰富index的数量，可以为同一个chunk内容增加多组index。 优化检索词：在实际使用过程中，用户的问题通常是模糊的或是缺失的，并不一定是完整清晰的问题。因此优化用户的问题（检索词）很大程度上也可以提高精度。 微调向量模型：由于市面上直接使用的向量模型都是通用型模型，在特定领域的检索精度并不高，因此微调向量模型可以很大程度上提高专业领域的检索效果。 FastGPT 构建知识库方案 link在 FastGPT 中，整个知识库由库、集合和数据 3 部分组成。集合可以简单理解为一个文件。一个库中可以包含多个集合，一个集合中可以包含多组数据。最小的搜索单位是库，也就是说，知识库搜索时，是对整个库进行搜索，而集合仅是为了对数据进行分类管理，与搜索效果无关。（起码目前还是）
+库 集合 数据 导入数据方案1 - 直接分段导入 link选择文件导入时，可以选择直接分段方案。直接分段会利用句子分词器对文本进行一定长度拆分，最终分割中多组的q。如果使用了直接分段方案，我们建议在应用设置引用提示词时，使用通用模板即可，无需选择问答模板。
+交互 结果 导入数据方案2 - QA导入 link选择文件导入时，可以选择QA拆分方案。仍然需要使用到句子分词器对文本进行拆分，但长度比直接分段大很多。在导入后，会先调用大模型对分段进行学习，并给出一些问题和答案，最终问题和答案会一起被存储到q中。注意，新版的 FastGPT 为了提高搜索的范围，不再将问题和答案分别存储到 qa 中。
+交互 结果 导入数据方案3 - 手动录入 link在 FastGPT 中，你可以在任何一个集合中点击右上角的插入手动录入知识点，或者使用标注功能手动录入。被搜索的内容为q，补充内容(可选)为a。
+导入数据方案4 - CSV录入 link有些数据较为独特，可能需要单独的进行预处理分割后再导入 FastGPT，此时可以选择 csv 导入，可批量的将处理好的数据导入。</description></item><item><title> 接入飞书</title><link>/docs/use-cases/feishu/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/feishu/</guid><description>FastGPT 一分钟接入飞书 linkFeishu OpenAI GitHub 地址
+查看视频教程
+由于 FastGPT 的 API 接口和 OpenAI 的规范一致，可以无需变更第三方应用即可使用 FastGPT 上编排好的应用。API 使用可参考 这篇文章。编排示例，可参考 高级编排介绍
+1. 获取 FastGPT 的 OpenAPI 秘钥 link依次选择应用 -&amp;gt; 「API 访问」，然后点击「API 密钥」来创建密钥。 参考这篇文章
+2. 部署飞书服务 link推荐使用 Railway 一键部署
+参考环境变量配置：
+FastGPT 集成重点参数：
+#上一步FastGPT的OpenAPI 秘钥 OPENAI_KEY=fastgpt-z51pkjqm9nrk03a1rx2funoy #调用OpenAI的BaseUrl要换成FastGPT的 API_URL=https://api.fastgpt.in/api/openapi 3. 创建飞书机器人 link 前往 开发者平台 创建应用 , 并获取到 APPID 和 Secret 前往应用功能-机器人, 创建机器人 从 cpolar、serverless 或 Railway 获得公网地址，在飞书机器人后台的 事件订阅 板块填写。例如， http://xxxx.r6.cpolar.top 为 cpolar 暴露的公网地址 /webhook/event 为统一的应用路由 最终的回调地址为 http://xxxx.</description></item><item><title>对接 chatgpt-on-wechat</title><link>/docs/use-cases/onwechat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/onwechat/</guid><description>1 分钟对接 chatgpt-on-wechat linkchatgpt-on-wechat GitHub 地址
+由于 FastGPT 的 API 接口和 OpenAI 的规范一致，可以无需变更原来的应用即可使用 FastGPT 上编排好的应用。API 使用可参考 这篇文章。编排示例，可参考 高级编排介绍
+1. 获取 OpenAPI 秘钥 link依次选择应用 -&amp;gt; 「API访问」，然后点击「API 密钥」来创建密钥。
+warning 密钥需要自己保管好，一旦关闭就无法再复制密钥，只能创建新密钥再复制。
+3. 创建 docker-compose.yml 文件 link只需要修改 OPEN_AI_API_KEY 和 OPEN_AI_API_BASE 两个环境变量即可。其中 OPEN_AI_API_KEY 为第一步获取的秘钥，OPEN_AI_API_BASE 为 FastGPT 的 OpenAPI 地址，例如：https://api.fastgpt.in/api/v1。
+随便找一个目录，创建一个 docker-compose.yml 文件，将下面的代码复制进去。
+version: &amp;#39;2.0&amp;#39; services: chatgpt-on-wechat: image: zhayujie/chatgpt-on-wechat container_name: chatgpt-on-wechat security_opt: - seccomp:unconfined environment: OPEN_AI_API_KEY: &amp;#39;fastgpt-z51pkjqm9nrk03a1rx2funoy&amp;#39; OPEN_AI_API_BASE: &amp;#39;https://api.fastgpt.in/api/v1&amp;#39; MODEL: &amp;#39;gpt-3.5-turbo&amp;#39; CHANNEL_TYPE: &amp;#39;wx&amp;#39; PROXY: &amp;#39;&amp;#39; HOT_RELOAD: &amp;#39;False&amp;#39; SINGLE_CHAT_PREFIX: &amp;#39;[&amp;#34;bot&amp;#34;, &amp;#34;@bot&amp;#34;]&amp;#39; SINGLE_CHAT_REPLY_PREFIX: &amp;#39;&amp;#34;[bot] &amp;#34;&amp;#39; GROUP_CHAT_PREFIX: &amp;#39;[&amp;#34;@bot&amp;#34;]&amp;#39; GROUP_NAME_WHITE_LIST: &amp;#39;[&amp;#34;ChatGPT测试群&amp;#34;, &amp;#34;ChatGPT测试群2&amp;#34;]&amp;#39; IMAGE_CREATE_PREFIX: &amp;#39;[&amp;#34;画&amp;#34;, &amp;#34;看&amp;#34;, &amp;#34;找&amp;#34;]&amp;#39; CONVERSATION_MAX_TOKENS: 1000 SPEECH_RECOGNITION: &amp;#39;False&amp;#39; CHARACTER_DESC: &amp;#39;你是ChatGPT, 一个由OpenAI训练的大型语言模型, 你旨在回答并解决人们的任何问题，并且可以使用多种语言与人交流。&amp;#39; SUBSCRIBE_MSG: &amp;#39;感谢您的关注！\n这里是ChatGPT，可以自由对话。\n支持语音对话。\n支持图片输入。\n支持图片输出，画字开头的消息将按要求创作图片。\n支持tool、角色扮演和文字冒险等丰富的插件。\n输入{trigger_prefix}#help 查看详细指令。&amp;#39; EXPIRES_IN_SECONDS: 3600 USE_GLOBAL_PLUGIN_CONFIG: &amp;#39;True&amp;#39; USE_LINKAI: &amp;#39;False&amp;#39; LINKAI_API_KEY: &amp;#39;&amp;#39; LINKAI_APP_CODE: &amp;#39;&amp;#39; 4.</description></item><item><title>对接第三方 GPT 应用</title><link>/docs/use-cases/openapi/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/openapi/</guid><description>获取 API 秘钥 link依次选择应用 -&amp;gt; 「API访问」，然后点击「API 密钥」来创建密钥。
+warning 密钥需要自己保管好，一旦关闭就无法再复制密钥，只能创建新密钥再复制。
+🍅
+Tips: 安全起见，你可以设置一个额度或者过期时间，放置 key 被滥用。
+替换三方应用的变量 link OPENAI_API_BASE_URL: https://api.fastgpt.in/api (改成自己部署的域名) OPENAI_API_KEY = 上一步获取到的秘钥 ChatGPT Next Web 示例：
+ChatGPT Web 示例：</description></item><item><title> 接入微信和企业微信</title><link>/docs/use-cases/wechat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/wechat/</guid><description>FastGPT 三分钟接入微信/企业微信 link私人微信和企业微信接入的方式基本一样，不同的地方会刻意指出。
+查看视频教程
+创建APIKey link首先找到我们需要接入的应用，然后点击「外部使用」-&amp;gt;「API访问」创建一个APIKey并保存。
+配置微秘书 link打开微秘书 注册登陆后找到菜单栏「基础配置」-&amp;gt;「智能配置」，按照下图配置。
+继续往下看到 apikey 和服务器根地址，这里apikey填写我们在 FastGPT 应用外部访问中创建的 APIkey，服务器根地址填写官方地址或者私有化部署的地址，这里用官方地址示例，注意要添加/v1后缀,填写完毕后保存。
+sealos部署服务 link访问sealos 登陆进来之后打开「应用管理」-&amp;gt; 「新建应用」。
+应用名：称随便填写 镜像名：私人微信填写 aibotk/wechat-assistant 企业微信填写 aibotk/worker-assistant cpu和内存建议 1c1g 往下翻页找到「高级配置」-&amp;gt; 「编辑环境变量」
+这里需要填写四个环境变量：
+AIBOTK_KEY=微秘书 APIKEY AIBOTK_SECRET=微秘书 APISECRET WORK_PRO_TOKEN=你申请的企微 token （企业微信需要填写，私人微信不需要） 这里最后两个变量只有部署企业微信才需要，私人微信只需要填写前两个即可。
+这里环境变量我们介绍下如何填写：
+AIBOTK_KEY 和 AIBOTK_SECRET 我们需要回到微秘书找到「个人中心」,这里的 APIKEY 对应 AIBOTK_KEY ，APISECRET 对应 AIBOTK_SECRET。
+WORK_PRO_TOKEN 点击这里申请 token 然后填入即可。
+WECHATY_PUPPET_SERVICE_AUTHORITY的值复制过去就可以。
+填写完毕后点右上角「部署」，等待应用状态变为运行中。
+返回微秘书 找到「首页」，扫码登陆需要接入的微信号。
+测试 link只需要发送信息，或者拉入群聊@登陆的微信就会回复信息啦。</description></item><item><title> 打造高质量 AI 知识库(过期)</title><link>/docs/use-cases/kb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/kb/</guid><description>前言 link自从去年 12 月 ChatGPT 发布后，带动了新的一轮应用交互革命。尤其是 GPT-3.5 接口全面放开后，LLM 应用雨后春笋般快速涌现，但因为 GPT 的可控性、随机性和合规性等问题，很多应用场景都没法落地。
+3 月时候，在 Twitter 上刷到一个老哥使用 GPT 训练自己的博客记录，并且成本非常低（比起 FT）。他给出了一个完整的流程图：
+看到这个推文后，我灵机一动，应用场景就十分清晰了。直接上手开干，在经过不到 1 个月时间，FastGPT 在原来多助手管理基础上，加入了向量搜索。于是便有了最早的一期视频：
+&lt;!DOCTYPE HTML> 3 个月过去了，FastGPT 延续着早期的思路去完善和扩展，目前在向量搜索 + LLM 线性问答方面的功能基本上完成了。不过我们始终没有出一期关于如何构建知识库的教程，趁着 V4 在开发中，我们计划介绍一期《如何在 FastGPT 上构建高质量知识库》，以便大家更好的使用。
+FastGPT 知识库完整逻辑 link在正式构建知识库前，我们先来了解下 FastGPT 是如何进行知识库检索的。首先了解几个基本概念：
+向量：将人类直观的语言（文字、图片、视频等）转成计算机可识别的语言（数组）。 向量相似度：两个向量之间可以进行计算，得到一个相似度，即代表：两个语言相似的程度。 语言大模型的一些特点：上下文理解、总结和推理。 结合上述 3 个概念，便有了 “向量搜索 + 大模型 = 知识库问答” 的公式。下图是 FastGPT V3 中知识库问答功能的完整逻辑：
+与大部分其他知识库问答产品不一样的是， FastGPT 采用了 QA 问答对进行存储，而不是仅进行 chunk（文本分块）处理。目的是为了减少向量化内容的长度，让向量能更好的表达文本的含义，从而提高搜索精准度。 此外 FastGPT 还提供了搜索测试和对话测试两种途径对数据进行调整，从而方便用户调整自己的数据。根据上述流程和方式，我们以构建一个 FastGPT 常见问题机器人为例，展示如何构建一个高质量的 AI 知识库。
+构建知识库应用 link首先，先创建一个 FastGPT 常见问题知识库</description></item><item><title>快速开始本地开发</title><link>/docs/development/intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/intro/</guid><description>本文档介绍了如何设置开发环境以构建和测试 FastGPT。
+前置依赖项 link您需要在计算机上安装和配置以下依赖项才能构建 FastGPT：
+Git Docker（构建镜像） Node.js v18.x (不推荐最新的，可能有兼容问题) pnpm 版本 8.x.x 开始本地开发 linkTips
+用户默认的时区为 Asia/Shanghai,非 linux 环境时候，获取系统时间会异常，本地开发时候，可以将用户的时区调整成 UTC（+0）。 建议先服务器装好数据库，再进行本地开发。 1. Fork 存储库 link您需要 Fork 存储库。
+2. 克隆存储库 link克隆您在 GitHub 上 Fork 的存储库：
+git clone git@github.com:&amp;lt;github_username&amp;gt;/FastGPT.git 目录简要说明
+projects 目录下为 FastGPT 应用代码。其中 app 为 FastGPT 核心应用。（后续可能会引入其他应用） NextJS 框架前后端放在一起，API 服务位于 src/pages/api 目录内。 packages 目录为共用代码，通过 workspace 被注入到 projects 中，已配置 monorepo 自动注入，无需额外打包。 3. 安装数据库 link第一次开发，需要先部署数据库，建议本地开发可以随便找一台 2C2G 的轻量小数据库实践。数据库部署教程：Docker 快速部署。部署完了，可以本地访问其数据库。
+4. 初始配置 link以下文件均在 projects/app 路径下。</description></item><item><title>Sealos 一键部署</title><link>/docs/development/sealos/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/sealos/</guid><description>Sealos 的服务器在国外，不需要额外处理网络问题，无需服务器、无需魔法、无需域名，支持高并发 &amp;amp; 动态伸缩。点击以下按钮即可一键部署 👇
+由于需要部署数据库，部署完后需要等待 2~4 分钟才能正常访问。默认用了最低配置，首次访问时会有些慢。
+点击 Sealos 提供的外网地址即可打开 FastGPT 的可视化界面。
+用户名：root
+密码就是刚刚一键部署时设置的环境变量
+修改配置文件和环境变量 link在 Sealos 中，你可以打开应用管理（App Launchpad）看到部署的 FastGPT，可以打开数据库（Database）看到对应的数据库。
+在应用管理中，选中 FastGPT，点击变更，可以看到对应的环境变量和配置文件。
+🤖
+在 Sealos 上，FastGPT 一共运行了 1 个服务和 2 个数据库，如暂停和删除请注意数据库一同操作。（你可以白天启动，晚上暂停它们，省钱大法）
+更新 link点击重启会自动拉取最新镜像更新，请确保镜像tag正确。
+部署架构图 link Sealos 使用 link简介 linkFastGPT 商业版共包含了3个应用（fastgpt, fastgpt-plus, fastgpt-admin）和2个数据库，使用多 Api Key 时候需要安装 OneAPI（一个应用和一个数据库），总计4个应用和3个数据库。
+点击右侧的详情，可以查看对应应用的详细信息。
+如何更新/升级 FastGPT link升级脚本文档先看下文档，看下需要升级哪个版本。注意，不要跨版本升级！！！！！
+例如，目前是4.5 版本，要升级到4.5.1，就先把镜像版本改成v4.5.1，执行一下升级脚本，等待完成后再继续升级。如果目标版本不需要执行初始化，则可以跳过。
+升级步骤：
+查看更新文档，确认要升级的版本，避免跨版本升级。 打开 sealos 的应用管理 有2个应用 fastgpt ， fastgpt-pro 点击对应应用右边3个点，变更。或者点详情后右上角的变更。 修改镜像的版本号 点击变更/重启，会自动拉取最新镜像进行更新 执行对应版本的初始化脚本(如果有) 如何获取 FastGPT 访问链接 link打开对应的应用，点击外网访问地址。</description></item><item><title>Docker Compose 快速部署</title><link>/docs/development/docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/docker/</guid><description>推荐配置 link 环境 推荐配置（单节点） 测试 2c2g 100w 组向量 4c16g 500w 组向量 16c64g 1. 准备好代理环境（国外服务器可忽略） link确保可以访问 OpenAI，具体方案可以参考：代理方案。或直接在 Sealos 上 部署 OneAPI，既解决代理问题也能实现多 Key 轮询、接入其他大模型。
+2. 多模型支持 linkFastGPT 使用了 one-api 项目来管理模型池，其可以兼容 OpenAI 、Azure 、国内主流模型和本地模型等。
+可选择 Sealos 快速部署 OneAPI，更多部署方法可参考该项目的 README，也可以直接通过以下按钮一键部署：
+一、安装 Docker 和 docker-compose link Linux MacOS Windows # 安装 Docker curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun systemctl enable --now docker # 安装 docker-compose curl -L https://github.com/docker/compose/releases/download/2.20.3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose chmod &amp;#43;x /usr/local/bin/docker-compose # 验证安装 docker -v docker-compose -v # 如失效，自行百度~ 推荐直接使用 Orbstack。可直接通过 Homebrew 来安装：</description></item><item><title>接入微软、ChatGLM、本地模型等</title><link>/docs/development/one-api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/one-api/</guid><description>默认情况下，FastGPT 只配置了 GPT 的模型，如果你需要接入其他模型，需要进行一些额外配置。 One API 是一个 OpenAI 接口管理 &amp;amp; 分发系统，可以通过标准的 OpenAI API 格式访问所有的大模型，开箱即用。 FastGPT 可以通过接入 OneAPI 来实现对不同大模型的支持。OneAPI 的部署方法也很简单。 MySQL 版本 linkMySQL 版本支持多实例，高并发。
+直接点击以下按钮即可一键部署 👇
+部署完后会跳转「应用管理」，数据库在另一个应用「数据库」中。需要等待 1~3 分钟数据库运行后才能访问成功。
+SqlLite 版本 linkSqlLite 版本不支持多实例，适合个人小流量使用，但是价格非常便宜。
+1. 点击打开 Sealos 公有云
+2. 打开 AppLaunchpad(应用管理) 工具
+3. 点击创建新应用
+4. 填写对应参数
+镜像：ghcr.io/songquanpeng/one-api:latest
+打开外网访问开关后，Sealos 会自动分配一个可访问的地址，不需要自己配置。
+填写完参数后，点击右上角部署即可。环境变量：
+SESSION_SECRET=SESSION_SECRET POLLING_INTERVAL=60 BATCH_UPDATE_ENABLED=true BATCH_UPDATE_INTERVAL=60 One API使用步骤 link1. 登录 One API link打开 【One API 应用详情】，找到访问地址： 登录 One API 2. 创建渠道和令牌 link在 One API 中添加对应渠道，直接点击 【添加基础模型】，不要遗漏了向量模型 创建一个令牌 3.</description></item><item><title>配置文件介绍</title><link>/docs/development/configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/configuration/</guid><description>由于环境变量不利于配置复杂的内容，新版 FastGPT 采用了 ConfigMap 的形式挂载配置文件，你可以在 projects/app/data/config.json 看到默认的配置文件。可以参考 docker-compose 快速部署 来挂载配置文件。
+开发环境下，你需要将示例配置文件 config.json 复制成 config.local.json 文件才会生效。
+这个配置文件中包含了系统级参数、AI 对话的模型、function 模型等……
+旧版本配置文件 link以下配置适合 4.6.6-alpha 之前
+{ &amp;#34;SystemParams&amp;#34;: { &amp;#34;pluginBaseUrl&amp;#34;: &amp;#34;&amp;#34;, // 商业版接口地址 &amp;#34;vectorMaxProcess&amp;#34;: 15, // 向量生成最大进程，结合数据库性能和 key 来设置 &amp;#34;qaMaxProcess&amp;#34;: 15, // QA 生成最大进程，结合数据库性能和 key 来设置 &amp;#34;pgHNSWEfSearch&amp;#34;: 100 // pg vector 索引参数，越大精度高但速度慢 }, &amp;#34;ChatModels&amp;#34;: [ // 对话模型 { &amp;#34;model&amp;#34;: &amp;#34;gpt-3.5-turbo-1106&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;GPT35-1106&amp;#34;, &amp;#34;price&amp;#34;: 0, // 除以 100000 后等于1个token的价格 &amp;#34;maxContext&amp;#34;: 16000, // 最大上下文长度 &amp;#34;maxResponse&amp;#34;: 4000, // 最大回复长度 &amp;#34;quoteMaxToken&amp;#34;: 2000, // 最大引用内容长度 &amp;#34;maxTemperature&amp;#34;: 1.</description></item><item><title>常见开发 &amp; 部署问题</title><link>/docs/development/qa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/qa/</guid><description>错误排查方式 link遇到问题先按下面方式排查。
+docker ps -a 查看所有容器运行状态，检查是否全部 running，如有异常，尝试docker logs 容器名查看对应日志。 不懂 docker 不要瞎改端口，只需要改OPENAI_BASE_URL和CHAT_API_KEY即可。 容器都运行正常的，docker logs 容器名 查看报错日志 无法解决时，可以找找Issue，或新提 Issue，私有部署错误，务必提供详细的日志，否则很难排查。 通用问题 linkinsufficient_user_quota user quota is not enough linkOneAPI 账号的余额不足，默认 root 用户只有 200 刀，可以手动修改。
+xxx渠道找不到 linkOneAPI 中没有配置该模型渠道。
+页面中可以正常回复，API 报错 link页面中是用 stream=true 模式，所以API也需要设置 stream=true 来进行测试。部分模型接口（国产居多）非 Stream 的兼容有点垃圾。
+Incorrect API key provided: sk-xxxx.You can find your api Key at xxx linkOneAPI 的 API Key 配置错误，需要修改OPENAI_API_KEY环境变量，并重启容器（先 stop 然后 rm 掉，最后再 up -d 运行一次）。可以exec进入容器，env查看环境变量是否生效。
+Docker 部署常见问题 link如何更新？ link 查看更新文档，确认要升级的版本，避免跨版本升级。</description></item><item><title>升级说明</title><link>/docs/development/upgrading/intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/intro/</guid><description>FastGPT 升级包括两个步骤：
+镜像升级 执行升级初始化脚本 镜像名 linkgit版
+FastGPT 主镜像：ghcr.io/labring/fastgpt:latest 商业版镜像：ghcr.io/c121914yu/fastgpt-pro:latest Admin 镜像：ghcr.io/c121914yu/fastgpt-admin:latest 阿里云
+FastGPT 主镜像: registry.cn-hangzhou.aliyuncs.com/fastgpt/fastgpt 商业版镜像：ghcr:registry.cn-hangzhou.aliyuncs.com/fastgpt/fastgpt-pro Admin 镜像: registry.cn-hangzhou.aliyuncs.com/fastgpt/fastgpt-admin 镜像由镜像名和Tag组成，例如: registry.cn-hangzhou.aliyuncs.com/fastgpt/fastgpt:v4.6.1 代表4.6.3版本镜像，具体可以看 docker hub, github 仓库。
+Sealos 修改镜像 link 打开 Sealos Cloud， 找到桌面上的应用管理 选择对应的应用 - 点击右边三个点 - 变更 修改镜像 - 确认变更
+如果要修改配置文件，可以拉到下面的配置文件进行修改。
+Docker-Compose 修改镜像 link直接修改yml文件中的image: 即可。随后执行:
+docker-compose pull docker-compose up -d 执行升级初始化脚本 link镜像更新完后，可以查看文档中的版本介绍，通常需要执行升级脚本的版本都会标明需要初始化，打开对应的文档，参考说明执行初始化脚本即可，大部分时候都是需要发送一个POST请求。
+QA link{{host}} 是什么 link{{}} 代表变量， {{host}}代表一个名为 host 的变量。指的是你服务器的域名或 IP。
+Sealos 中，你可以在下图中找到你的域名：
+如何获取 rootkey link从docker-compose.yml中的environment中获取，对应的是ROOT_KEY的值。
+sealos 中可以从上图左侧的环境变量中获取。
+如何跨版本升级！！ link建议逐一版本升级，防止脏数据。例如，当前版本是4.</description></item><item><title>V4.6.6（需要改配置文件）</title><link>/docs/development/upgrading/466/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/466/</guid><description>配置文件变更 link为了减少代码重复度，我们对配置文件做了一些修改：点击查看最新的配置文件
+V4.6.6 更新说明 link 查看 FastGPT 2024 RoadMap 新增 - Http 模块请求头支持 Json 编辑器。 新增 - ReRank模型部署 新增 - 搜索方式：分离向量语义检索，全文检索和重排，通过 RRF 进行排序合并。 优化 - 问题分类提示词，id引导。测试国产商用 api 模型（百度阿里智谱讯飞）使用 Prompt 模式均可分类。 UI 优化，未来将逐步替换新的UI设计。 优化代码：Icon 抽离和自动化获取。 修复 - 链接读取的数据集，未保存选择器，导致同步时不使用选择器。</description></item><item><title>V4.6.5（需要改配置文件）</title><link>/docs/development/upgrading/465/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/465/</guid><description>配置文件变更 link由于 openai 已开始弃用 function call，改为 toolChoice。FastGPT 同步的修改了对于的配置和调用方式，需要对配置文件做一些修改：
+点击查看最新的配置文件
+主要是修改模型的functionCall字段，改成toolChoice即可。设置为true的模型，会默认走 openai 的 tools 模式；未设置或设置为false的，会走提示词生成模式。 问题补全模型与内容提取模型使用同一组配置。
+增加 &amp;quot;ReRankModels&amp;quot;: [] V4.6.5 功能介绍 link 新增 - 问题补全模块 新增 - 文本编辑模块 新增 - 判断器模块 新增 - 自定义反馈模块 新增 - 【内容提取】模块支持选择模型，以及字段枚举 优化 - docx读取，兼容表格（表格转markdown） 优化 - 高级编排连接线交互 优化 - 由于 html2md 导致的 cpu密集计算，阻断线程问题 修复 - 高级编排提示词提取描述</description></item><item><title>V4.6.4(需要初始化)</title><link>/docs/development/upgrading/464/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/464/</guid><description>1。执行初始化 API link发起 1 个 HTTP 请求 ({{rootkey}} 替换成环境变量里的 rootkey，{{host}} 替换成自己域名)
+https://xxxxx/api/admin/initv464 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv464&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 初始化说明：
+初始化 PG 的createTime字段 初始化 Mongo 中 chat 的 feedback 字段 V4.6.4 功能介绍 link 重写 - 分享链接身份逻辑，采用 localID 记录用户的ID。 商业版新增 - 分享链接 SSO 方案，通过身份鉴权地址，仅需3个接口即可完全接入已有用户系统。具体参考分享链接身份鉴权 新增 - 分享链接更多嵌入方式提示，更多DIY方式。 优化 - 历史记录模块。弃用旧的历史记录模块，直接在对应地方填写数值即可。 调整 - 知识库搜索模块 topk 逻辑，采用 MaxToken 计算，兼容不同长度的文本块 调整鉴权顺序，提高 apikey 的优先级，避免cookie抢占 apikey 的鉴权。 链接读取支持多选择器。参考Web 站点同步用法 修复 - 分享链接图片上传鉴权问题 修复 - Mongo 连接池未释放问题。 修复 - Dataset Intro 无法更新 修复 - md 代码块问题 修复 - root 权限问题 优化 docker file</description></item><item><title>V4.6.3(需要初始化)</title><link>/docs/development/upgrading/463/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/463/</guid><description>1。执行初始化 API link发起 1 个 HTTP 请求 ({{rootkey}} 替换成环境变量里的 rootkey，{{host}} 替换成自己域名)
+https://xxxxx/api/admin/initv463 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv463&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 初始化说明：
+初始化Mongo 中 dataset，collection 和 data 的部分字段 V4.6.3 功能介绍 link 商业版新增 - web站点同步 新增 - 集合元数据记录 优化 - url 读取内容 优化 - 流读取文件，防止内存溢出 优化 - 4v模型自动将 url 转 base64，本地也可调试 优化 - 图片压缩等级 修复 - 图片压缩失败报错，防止文件读取过程卡死。</description></item><item><title>V4.6.2(需要初始化)</title><link>/docs/development/upgrading/462/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/462/</guid><description>1。执行初始化 API link发起 1 个 HTTP 请求 ({{rootkey}} 替换成环境变量里的 rootkey，{{host}} 替换成自己域名)
+https://xxxxx/api/admin/initv462 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv462&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 初始化说明：
+初始化全文索引 V4.6.2 功能介绍 link 新增 - 全文索引（需配合 Rerank 模型，在看怎么放到开源版，模型接口比较特殊） 新增 - 插件来源（预计4.7/4.8版本会正式使用） 优化 - PDF读取 优化 - docx文件读取，转成 markdown 并保留其图片内容 修复和优化 TextSplitter 函数</description></item><item><title>V4.6.1</title><link>/docs/development/upgrading/461/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/461/</guid><description>V4.6.1 功能介绍 link 新增 - GPT4-v 模型支持 新增 - whisper 语音输入 优化 - TTS 流传输 优化 - TTS 缓存</description></item><item><title>V4.6(需要初始化)</title><link>/docs/development/upgrading/46/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/46/</guid><description>V4.6 版本加入了简单的团队功能，可以邀请其他用户进来管理资源。该版本升级后无法执行旧的升级脚本，且无法回退。
+1。更新镜像并变更配置文件 link更新镜像至 latest 或者 v4.6 版本。商业版镜像更新至 V0.2.1
+最新配置可参考：V46 版本最新 config.json，商业镜像配置文件也更新，参考最新的飞书文档。
+2。执行初始化 API link发起 2 个 HTTP 请求 ({{rootkey}} 替换成环境变量里的 rootkey，{{host}} 替换成自己域名)
+该初始化接口可能速度很慢，返回超时不用管，注意看日志即可，需要注意的是，需确保 initv46 成功后，在执行 initv46-2
+https://xxxxx/api/admin/initv46 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv46&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; https://xxxxx/api/admin/initv46-2 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv46-2&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 初始化内容： 1。创建默认团队 2。初始化 Mongo 所有资源的团队字段 3。初始化 Pg 的字段 4。初始化 Mongo Data
+V4.6 功能介绍 link 新增 - 团队空间 新增 - 多路向量 (多个向量映射一组数据) 新增 - tts 语音 新增 - 支持知识库配置文本预处理模型 线上环境新增 - ReRank 向量召回，提高召回精度 优化 - 知识库导出，可直接触发流下载，无需等待转圈圈 4.</description></item><item><title>V4.5.2</title><link>/docs/development/upgrading/452/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/452/</guid><description>功能介绍 linkFast GPT V4.5.2 link 新增 - 模块插件，允许自行组装插件进行模块复用。 优化 - 知识库引用提示。</description></item><item><title>V4.5.1(需进行初始化)</title><link>/docs/development/upgrading/451/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/451/</guid><description>执行初始化 API link发起 1 个 HTTP 请求（{{rootkey}} 替换成环境变量里的rootkey，{{host}}替换成自己域名）
+https://xxxxx/api/admin/initv451 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv451&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 初始化内容：
+rename 数据库字段 初始化 Mongo APP 表中知识库的相关字段 初始化 PG 和 Mongo 的内容，为每个文件创建一个集合（存储 Mongo 中），并反馈赋值给 PG。 该初始化接口可能速度很慢，返回超时不用管，注意看日志即可
+功能介绍 linkFast GPT V4.5.1 link 新增知识库文件夹管理 修复了 openai4.x sdk 无法兼容 oneapi 的智谱和阿里的接口。 修复部分模块无法触发完成事件</description></item><item><title>V4.5(需进行较为复杂更新)</title><link>/docs/development/upgrading/45/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/45/</guid><description>FastGPT V4.5 引入 PgVector0.5 版本的 HNSW 索引，极大的提高了知识库检索的速度，比起IVFFlat索引大致有3~10倍的性能提升，可轻松实现百万数据毫秒级搜索。缺点在于构建索引的速度非常慢，4c16g 500w 组数据使用并行构建大约花了 48 小时。具体参数配置可参考 PgVector官方
+下面需要对数据库进行一些操作升级：
+PgVector升级：Sealos 部署方案 link 点击Sealos桌面的数据库应用。 点击【pg】数据库的详情。 点击右上角的重启，等待重启完成。 点击左侧的一键链接，等待打开 Terminal。 依次输入下方 sql 命令 -- 升级插件名 ALTER EXTENSION vector UPDATE; -- 插件是否升级成功，成功的话，vector插件版本为 0.5.0，旧版的为 0.4.1 \dx -- 下面两个语句会设置 pg 在构建索引时可用的内存大小，需根据自身的数据库规格来动态配置，可配置为 1/4 的内存大小 alter system set maintenance_work_mem = &amp;#39;2400MB&amp;#39;; select pg_reload_conf(); -- 重构数据库索引和排序 REINDEX DATABASE postgres; -- 开始构建索引，该索引构建时间非常久，直接点击右上角的叉，退出 Terminal 即可 CREATE INDEX CONCURRENTLY vector_index ON modeldata USING hnsw (vector vector_ip_ops) WITH (m = 16, ef_construction = 64); -- 可以再次点击一键链接，进入 Terminal，输入下方命令，如果看到 &amp;#34;vector_index&amp;#34; hnsw (vector vector_ip_ops) WITH (m=&amp;#39;16&amp;#39;, ef_construction=&amp;#39;64&amp;#39;) 则代表构建完成（注意，后面没有 INVALID） \d modeldata PgVector升级：Docker-compose.</description></item><item><title>V4.4.7（需执行升级脚本）</title><link>/docs/development/upgrading/447/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/447/</guid><description>执行初始化 API link发起 1 个 HTTP 请求（{{rootkey}} 替换成环境变量里的rootkey，{{host}}替换成自己域名）
+https://xxxxx/api/admin/initv447 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv447&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 初始化 pg 索引以及将 file_id 中空对象转成 manual 对象。如果数据多，可能需要较长时间，可以通过日志查看进度。
+功能介绍 linkFast GPT V4.4.7 link 优化了数据库文件 crud。 兼容链接读取，作为 source。 区分手动录入和标注，可追数据至某个文件。 升级 openai sdk。</description></item><item><title>V4.4.6</title><link>/docs/development/upgrading/446/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/446/</guid><description>功能介绍 link 高级编排新增模块 - 应用调用，可调用其他应用。 新增 - 必要连接校验 修复 - 下一步指引在免登录中身份问题。</description></item><item><title>V4.4.5(需要初始化)</title><link>/docs/development/upgrading/445/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/445/</guid><description>执行初始化 API link发起 1 个 HTTP 请求（记得携带 headers.rootkey，这个值是环境变量里的）
+https://xxxxx/api/admin/initv445 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv445&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 初始化了 variable 模块，将其合并到用户引导模块中。
+功能介绍 linkFast GPT V4.4.5 link 新增 - 下一步指引选项，可以通过模型生成 3 个预测问题。 商业版新增 - 分享链接限制及 hook 身份校验（可对接已有的用户系统）。 商业版新增 - Api Key 使用。增加别名、额度限制和过期时间。自带 appId，无需额外连接。 优化 - 全局变量与开场白合并成同一模块。</description></item><item><title>升级到 V4.4.2(需要初始化)</title><link>/docs/development/upgrading/442/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/442/</guid><description>执行初始化 API link发起 1 个 HTTP 请求 (记得携带 headers.rootkey，这个值是环境变量里的)
+https://xxxxx/api/admin/initv442 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv442&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 会给初始化 Mongo 的 Bill 表的索引，之前过期时间有误。</description></item><item><title>升级到 V4.4.1(需要初始化)</title><link>/docs/development/upgrading/441/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/441/</guid><description>执行初始化 API link发起 1 个 HTTP 请求（记得携带 headers.rootkey，这个值是环境变量里的）
+https://xxxxx/api/admin/initv441 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv441&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 会给初始化 Mongo 的 dataset.files，将所有数据设置为可用。</description></item><item><title>升级到 V4.4(需要初始化)</title><link>/docs/development/upgrading/44/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/44/</guid><description>执行初始化 API link发起 1 个 HTTP 请求 (记得携带 headers.rootkey，这个值是环境变量里的)
+https://xxxxx/api/admin/initv44 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv44&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 会给初始化 Mongo 的部分字段。</description></item><item><title>升级到 V4.3(需要初始化)</title><link>/docs/development/upgrading/43/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/43/</guid><description>执行初始化 API link发起 1 个 HTTP 请求 (记得携带 headers.rootkey，这个值是环境变量里的)
+https://xxxxx/api/admin/initv43 curl --location --request POST &amp;#39;https://{{host}}/api/admin/initv43&amp;#39; \ --header &amp;#39;rootkey: {{rootkey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; 会给 PG 数据库的 modeldata 表插入一个新列 file_id，用于存储文件 ID。
+增加环境变量 link增加一个 FILE_TOKEN_KEY 环境变量，用于生成文件预览链接，过期时间为 30 分钟。
+FILE_TOKEN_KEY=filetokenkey</description></item><item><title>升级到 V4.2.1</title><link>/docs/development/upgrading/421/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/421/</guid><description>私有部署，如果添加了配置文件，需要在配置文件中修改 VectorModels 字段。增加 defaultToken 和 maxToken，分别对应直接分段时的默认 token 数量和该模型支持的 token 上限 (通常不建议超过 3000)
+&amp;#34;VectorModels&amp;#34;: [ { &amp;#34;model&amp;#34;: &amp;#34;text-embedding-ada-002&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;Embedding-2&amp;#34;, &amp;#34;price&amp;#34;: 0, &amp;#34;defaultToken&amp;#34;: 500, &amp;#34;maxToken&amp;#34;: 3000 } ] 改动目的是，我们认为不需要留有选择余地，选择一个最合适的模型去进行任务即可。</description></item><item><title>升级到 V4.2</title><link>/docs/development/upgrading/42/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/42/</guid><description>99.9%用户不影响，升级 4.2 主要是修改了配置文件中 QAModel 的格式。从原先的数组改成对象：
+&amp;#34;QAModel&amp;#34;: { &amp;#34;model&amp;#34;: &amp;#34;gpt-3.5-turbo-16k&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;GPT35-16k&amp;#34;, &amp;#34;maxToken&amp;#34;: 16000, &amp;#34;price&amp;#34;: 0 } 改动目的是，我们认为不需要留有选择余地，选择一个最合适的模型去进行任务即可。</description></item><item><title>升级到 V4.1</title><link>/docs/development/upgrading/41/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/41/</guid><description>如果您是从旧版本升级到 V4.1，由于新版重新设置了对话存储结构，需要初始化原来的存储内容。
+更新环境变量 linkV4.1 优化了 PostgreSQL 和 MongoDB 的连接变量，只需要填 1 个 URL 即可：
+注意：/fastgpt 和 /postgres 是指数据库名称，需要和旧版的变量对应。
+# mongo 配置，不需要改. 如果连不上，可能需要去掉 ?authSource=admin - MONGODB_URI=mongodb://username:password@mongo:27017/fastgpt?authSource=admin # pg配置. 不需要改 - PG_URL=postgresql://username:password@pg:5432/postgres 初始化 API link部署新版项目，并发起 1 个 HTTP 请求（记得携带 headers.rootkey，这个值是环境变量里的）
+https://xxxxx/api/admin/initChatItem</description></item><item><title>升级到 V4.0</title><link>/docs/development/upgrading/40/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/upgrading/40/</guid><description>如果您是从旧版本升级到 V4，由于新版 MongoDB 表变更比较大，需要按照本文档的说明执行一些初始化脚本。
+重命名表名 link需要连接上 MongoDB 数据库，执行两条命令：
+db.models.renameCollection(&amp;#34;apps&amp;#34;) db.sharechats.renameCollection(&amp;#34;outlinks&amp;#34;) warning 注意：从旧版更新到 V4， MongoDB 会自动创建空表，你需要先手动删除这两个空表，再执行上面的操作。
+初始化几个表中的字段 link依次执行下面 3 条命令，时间比较长，不成功可以重复执行（会跳过已经初始化的数据），直到所有数据更新完成。
+db.chats.find({appId: {$exists: false}}).forEach(function(item){ db.chats.updateOne( { _id: item._id, }, { &amp;#34;$set&amp;#34;: {&amp;#34;appId&amp;#34;:item.modelId}} ) }) db.collections.find({appId: {$exists: false}}).forEach(function(item){ db.collections.updateOne( { _id: item._id, }, { &amp;#34;$set&amp;#34;: {&amp;#34;appId&amp;#34;:item.modelId}} ) }) db.outlinks.find({shareId: {$exists: false}}).forEach(function(item){ db.outlinks.updateOne( { _id: item._id, }, { &amp;#34;$set&amp;#34;: {&amp;#34;shareId&amp;#34;:item._id.toString(),&amp;#34;appId&amp;#34;:item.modelId}} ) }) 初始化 API link部署新版项目，并发起 3 个 HTTP 请求（记得携带 headers.rootkey，这个值是环境变量里的）
+https://xxxxx/api/admin/initv4 https://xxxxx/api/admin/initChat https://xxxxx/api/admin/initOutlink 1 和 2 有可能会因为内存不足挂掉，可以重复执行。</description></item><item><title>Api Key 使用与鉴权</title><link>/docs/development/openapi/auth/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/openapi/auth/</guid><description>使用说明 linkFasGPT OpenAPI 接口允许你使用 Api Key 进行鉴权，从而操作 FastGPT 上的相关服务和资源，例如：调用应用对话接口、上传知识库数据、搜索测试等等。出于兼容性和安全考虑，并不是所有的接口都允许通过 Api Key 访问。
+如何查看 BaseURL link注意：BaseURL 不是接口地址，而是所有接口的根地址，直接请求 BaseURL 是没有用的。
+如何获取 Api Key linkFastGPT 的 API Key 有 2 类，一类是全局通用的 key (无法直接调用应用对话)；一类是携带了 AppId 也就是有应用标记的 key (可直接调用应用对话)。
+我们建议，仅操作应用或者对话的相关接口使用 应用特定key，其他接口使用 通用key。
+通用key 应用特定 key 基本配置 linkOpenAPI 中，所有的接口都通过 Header.Authorization 进行鉴权。
+baseUrl: &amp;#34;https://api.fastgpt.in/api&amp;#34; headers: { Authorization: &amp;#34;Bearer {{apikey}}&amp;#34; } 发起应用对话示例
+curl --location --request POST &amp;#39;https://api.fastgpt.in/api/v1/chat/completions&amp;#39; \ --header &amp;#39;Authorization: Bearer fastgpt-xxxxxx&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ --data-raw &amp;#39;{ &amp;#34;chatId&amp;#34;: &amp;#34;111&amp;#34;, &amp;#34;stream&amp;#34;: false, &amp;#34;detail&amp;#34;: false, &amp;#34;messages&amp;#34;: [ { &amp;#34;content&amp;#34;: &amp;#34;导演是谁&amp;#34;, &amp;#34;role&amp;#34;: &amp;#34;user&amp;#34; } ] }&amp;#39;</description></item><item><title>对话接口</title><link>/docs/development/openapi/chat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/openapi/chat/</guid><description>发起对话 link 🤖
+该接口的 API Key 需使用应用特定的 key，否则会报错。
+有些包调用时，BaseUrl需要添加v1路径，有些不需要，如果出现404情况，可补充v1重试。
+对话接口兼容GPT的接口！如果你的项目使用的是标准的GPT官方接口，可以直接通过修改BaseUrl和 Authorization来访问 FastGpt 应用。
+请求 link 请求示例 detail=true 响应 curl --location --request POST &amp;#39;https://api.fastgpt.in/api/v1/chat/completions&amp;#39; \ --header &amp;#39;Authorization: Bearer fastgpt-xxxxxx&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ --data-raw &amp;#39;{ &amp;#34;chatId&amp;#34;: &amp;#34;abcd&amp;#34;, &amp;#34;stream&amp;#34;: false, &amp;#34;detail&amp;#34;: false, &amp;#34;variables&amp;#34;: { &amp;#34;uid&amp;#34;: &amp;#34;asdfadsfasfd2323&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;张三&amp;#34; }, &amp;#34;messages&amp;#34;: [ { &amp;#34;content&amp;#34;: &amp;#34;导演是谁&amp;#34;, &amp;#34;role&amp;#34;: &amp;#34;user&amp;#34; } ] }&amp;#39; info headers.Authorization: Bearer {{apikey}} chatId: string | undefined 。 为 undefined 时（不传入），不使用 FastGpt 提供的上下文功能，完全通过传入的 messages 构建上下文。 不会将你的记录存储到数据库中，你也无法在记录汇总中查阅到。 为非空字符串时，意味着使用 chatId 进行对话，自动从 FastGpt 数据库取历史记录，并使用 messages 数组最后一个内容作为用户问题。请自行确保 chatId 唯一，长度小于250，通常可以是自己系统的对话框ID。 messages: 结构与 GPT接口 完全一致。 detail: 是否返回中间值（模块状态，响应的完整结果等），stream模式下会通过event进行区分，非stream模式结果保存在responseData中。 variables: 模块变量，一个对象，会替换模块中，输入框内容里的{{key}} 响应 link detail=false,stream=false 响应 detail=false,stream=true 响应 detail=true,stream=false 响应 detail=true,stream=true 响应 { &amp;#34;id&amp;#34;: &amp;#34;adsfasf&amp;#34;, &amp;#34;model&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;usage&amp;#34;: { &amp;#34;prompt_tokens&amp;#34;: 1, &amp;#34;completion_tokens&amp;#34;: 1, &amp;#34;total_tokens&amp;#34;: 1 }, &amp;#34;choices&amp;#34;: [ { &amp;#34;message&amp;#34;: { &amp;#34;role&amp;#34;: &amp;#34;assistant&amp;#34;, &amp;#34;content&amp;#34;: &amp;#34;电影《铃芽之旅》的导演是新海诚。&amp;#34; }, &amp;#34;finish_reason&amp;#34;: &amp;#34;stop&amp;#34;, &amp;#34;index&amp;#34;: 0 } ] } data: {&amp;#34;id&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;object&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;created&amp;#34;:0,&amp;#34;choices&amp;#34;:[{&amp;#34;delta&amp;#34;:{&amp;#34;content&amp;#34;:&amp;#34;&amp;#34;},&amp;#34;index&amp;#34;:0,&amp;#34;finish_reason&amp;#34;:null}]} data: {&amp;#34;id&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;object&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;created&amp;#34;:0,&amp;#34;choices&amp;#34;:[{&amp;#34;delta&amp;#34;:{&amp;#34;content&amp;#34;:&amp;#34;电&amp;#34;},&amp;#34;index&amp;#34;:0,&amp;#34;finish_reason&amp;#34;:null}]} data: {&amp;#34;id&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;object&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;created&amp;#34;:0,&amp;#34;choices&amp;#34;:[{&amp;#34;delta&amp;#34;:{&amp;#34;content&amp;#34;:&amp;#34;影&amp;#34;},&amp;#34;index&amp;#34;:0,&amp;#34;finish_reason&amp;#34;:null}]} data: {&amp;#34;id&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;object&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;created&amp;#34;:0,&amp;#34;choices&amp;#34;:[{&amp;#34;delta&amp;#34;:{&amp;#34;content&amp;#34;:&amp;#34;《&amp;#34;},&amp;#34;index&amp;#34;:0,&amp;#34;finish_reason&amp;#34;:null}]} { &amp;#34;responseData&amp;#34;: [ // 不同模块的响应值, 不同版本具体值可能有差异，可先 log 自行查看最新值。 { &amp;#34;moduleName&amp;#34;: &amp;#34;Dataset Search&amp;#34;, &amp;#34;price&amp;#34;: 1.</description></item><item><title>知识库接口</title><link>/docs/development/openapi/dataset/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/openapi/dataset/</guid><description>如何获取知识库ID（datasetId） 如何获取文件集合ID（collection_id） 创建训练订单 link请求示例
+curl --location --request POST &amp;#39;https://api.fastgpt.in/api/support/wallet/bill/createTrainingBill&amp;#39; \ --header &amp;#39;Authorization: Bearer {{apikey}}&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ --data-raw &amp;#39;{ &amp;#34;name&amp;#34;: &amp;#34;可选，自定义订单名称，例如：文档训练-fastgpt.docx&amp;#34; }&amp;#39; 响应结果
+data 为 billId，可用于添加知识库数据时进行账单聚合。
+{ &amp;#34;code&amp;#34;: 200, &amp;#34;statusText&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;message&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;65112ab717c32018f4156361&amp;#34; } 知识库添加数据 link 请求示例 参数说明 响应例子 QA Prompt 模板 curl --location --request POST &amp;#39;https://api.fastgpt.in/api/core/dataset/data/pushData&amp;#39; \ --header &amp;#39;Authorization: Bearer apikey&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ --data-raw &amp;#39;{ &amp;#34;collectionId&amp;#34;: &amp;#34;64663f451ba1676dbdef0499&amp;#34;, &amp;#34;mode&amp;#34;: &amp;#34;chunk&amp;#34;, &amp;#34;prompt&amp;#34;: &amp;#34;可选。qa 拆分引导词，chunk 模式下忽略&amp;#34;, &amp;#34;billId&amp;#34;: &amp;#34;可选。如果有这个值，本次的数据会被聚合到一个订单中，这个值可以重复使用。可以参考 [创建训练订单] 获取该值。&amp;#34;, &amp;#34;data&amp;#34;: [ { &amp;#34;q&amp;#34;: &amp;#34;你是谁？&amp;#34;, &amp;#34;a&amp;#34;: &amp;#34;我是FastGPT助手&amp;#34; }, { &amp;#34;q&amp;#34;: &amp;#34;你会什么？&amp;#34;, &amp;#34;a&amp;#34;: &amp;#34;我什么都会&amp;#34;, &amp;#34;indexes&amp;#34;: [{ &amp;#34;type&amp;#34;:&amp;#34;custom&amp;#34;, &amp;#34;text&amp;#34;:&amp;#34;你好&amp;#34; }] } ] }&amp;#39; 需要先了解 FastGPT 的多路索引概念：</description></item><item><title>分享链接身份鉴权</title><link>/docs/development/openapi/share/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/openapi/share/</guid><description>介绍 link在 FastGPT V4.6.4 中，我们修改了分享链接的数据读取方式，为每个用户生成一个 localId，用于标识用户，从云端拉取对话记录。但是这种方式仅能保障用户在同一设备同一浏览器中使用，如果切换设备或者清空浏览器缓存则会丢失这些记录。这种方式存在一定的风险，因此我们仅允许用户拉取近30天的20条记录。
+分享链接身份鉴权设计的目的在于，将 FastGPT 的对话框快速、安全的接入到你现有的系统中，仅需 2 个接口即可实现。
+使用说明 link免登录链接配置中，你可以选择填写身份验证栏。这是一个POST请求的根地址。在填写该地址后，分享链接的初始化、开始对话以及对话结束都会向该地址的特定接口发送一条请求。下面以host来表示凭身份验证根地址。服务器接口仅需返回是否校验成功即可，不需要返回其他数据，格式如下：
+接口统一响应格式 link { &amp;#34;success&amp;#34;: true, &amp;#34;message&amp;#34;: &amp;#34;错误提示&amp;#34;, &amp;#34;msg&amp;#34;: &amp;#34;同message, 错误提示&amp;#34;, &amp;#34;data&amp;#34;: { &amp;#34;uid&amp;#34;: &amp;#34;用户唯一凭证&amp;#34; } } FastGPT 将会判断success是否为true决定是允许用户继续操作。message与msg是等同的，你可以选择返回其中一个，当success不为true时，将会提示这个错误。
+uid是用户的唯一凭证，将会用于拉取对话记录以及保存对话记录。可参考下方实践案例。
+触发流程 link 配置教程 link1. 配置身份校验地址 link 配置校验地址后，在每次分享链接使用时，都会向对应的地址发起校验和上报请求。
+🤖
+这里仅需配置根地址，无需具体到完整请求路径。
+2. 分享链接中增加额外 query link在分享链接的地址中，增加一个额外的参数: authToken。例如：
+原始的链接：https://share.fastgpt.in/chat/share?shareId=648aaf5ae121349a16d62192
+完整链接: https://share.fastgpt.in/chat/share?shareId=648aaf5ae121349a16d62192&amp;amp;authToken=userid12345
+这个authToken通常是你系统生成的用户唯一凭证（Token之类的）。FastGPT 会在鉴权接口的body中携带 token={{authToken}} 的参数。
+3. 编写聊天初始化校验接口 link 请求示例 鉴权成功 鉴权失败 curl --location --request POST &amp;#39;{{host}}/shareAuth/init&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ --data-raw &amp;#39;{ &amp;#34;token&amp;#34;: &amp;#34;{{authToken}}&amp;#34; }&amp;#39; { &amp;#34;success&amp;#34;: true, &amp;#34;data&amp;#34;: { &amp;#34;uid&amp;#34;: &amp;#34;用户唯一凭证&amp;#34; } } 系统会拉取该分享链接下，uid 为 username123 的对话记录。</description></item><item><title>接入 ChatGLM2-6B</title><link>/docs/development/custom-models/chatglm2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/custom-models/chatglm2/</guid><description>前言 linkFastGPT 允许你使用自己的 OpenAI API KEY 来快速调用 OpenAI 接口，目前集成了 GPT-3.5, GPT-4 和 embedding，可构建自己的知识库。但考虑到数据安全的问题，我们并不能将所有的数据都交付给云端大模型。
+那么如何在 FastGPT 上接入私有化模型呢？本文就以清华的 ChatGLM2 为例，为各位讲解如何在 FastGPT 中接入私有化模型。
+ChatGLM2-6B 简介 linkChatGLM2-6B 是开源中英双语对话模型 ChatGLM-6B 的第二代版本，具体介绍可参阅 ChatGLM2-6B 项目主页。
+warning 注意，ChatGLM2-6B 权重对学术研究完全开放，在获得官方的书面许可后，亦允许商业使用。本教程只是介绍了一种用法，无权给予任何授权！
+推荐配置 link依据官方数据，同样是生成 8192 长度，量化等级为 FP16 要占用 12.8GB 显存、int8 为 8.1GB 显存、int4 为 5.1GB 显存，量化后会稍微影响性能，但不多。
+因此推荐配置如下：
+类型 内存 显存 硬盘空间 启动命令 fp16 &amp;gt;=16GB &amp;gt;=16GB &amp;gt;=25GB python openai_api.py 16 int8 &amp;gt;=16GB &amp;gt;=9GB &amp;gt;=25GB python openai_api.py 8 int4 &amp;gt;=16GB &amp;gt;=6GB &amp;gt;=25GB python openai_api.</description></item><item><title>接入 ReRank 重排模型</title><link>/docs/development/custom-models/reranker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/custom-models/reranker/</guid><description>推荐配置 link推荐配置如下：
+类型 内存 显存 硬盘空间 启动命令 base &amp;gt;=4GB &amp;gt;=3GB &amp;gt;=8GB python app.py 部署 link环境要求 link Python 3.10.11 CUDA 11.7 科学上网环境 源码部署 link 根据上面的环境配置配置好环境，具体教程自行 GPT； 下载 python 文件 在命令行输入命令 pip install -r requirments.txt； 按照https://huggingface.co/BAAI/bge-reranker-base下载模型仓库到app.py同级目录 添加环境变量 export ACCESS_TOKEN=XXXXXX 配置 token，这里的 token 只是加一层验证，防止接口被人盗用，默认值为 ACCESS_TOKEN ； 执行命令 python app.py。 然后等待模型下载，直到模型加载完毕为止。如果出现报错先问 GPT。
+启动成功后应该会显示如下地址：
+这里的 http://0.0.0.0:6006 就是连接地址。
+docker 部署 link 镜像名: luanshaotong/reranker:v0.1 端口号: 6006 大小：约8GB 设置安全凭证（即oneapi中的渠道密钥）
+ACCESS_TOKEN=mytoken 运行命令示例
+docker run -d --name reranker -p 6006:6006 -e ACCESS_TOKEN=mytoken luanshaotong/reranker:v0.</description></item><item><title>接入 M3E 向量模型</title><link>/docs/development/custom-models/m3e/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/custom-models/m3e/</guid><description>前言 linkFastGPT 默认使用了 openai 的 embedding 向量模型，如果你想私有部署的话，可以使用 M3E 向量模型进行替换。M3E 向量模型属于小模型，资源使用不高，CPU 也可以运行。下面教程是基于 “睡大觉” 同学提供的一个的镜像。
+部署镜像 link镜像名: stawky/m3e-large-api:latest
+国内镜像： registry.cn-hangzhou.aliyuncs.com/fastgpt_docker/m3e-large-api:latest 端口号: 6008 环境变量：
+# 设置安全凭证（即oneapi中的渠道密钥） 默认值：sk-aaabbbcccdddeeefffggghhhiiijjjkkk 也可以通过环境变量引入：sk-key。有关docker环境变量引入的方法请自寻教程，此处不再赘述。 接入 One API link添加一个渠道，参数如下：
+测试 linkcurl 例子：
+curl --location --request POST &amp;#39;https://domain/v1/embeddings&amp;#39; \ --header &amp;#39;Authorization: Bearer xxxx&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ --data-raw &amp;#39;{ &amp;#34;model&amp;#34;: &amp;#34;m3e&amp;#34;, &amp;#34;input&amp;#34;: [&amp;#34;laf是什么&amp;#34;] }&amp;#39; Authorization 为 sk-key。model 为刚刚在 One API 填写的自定义模型。
+接入 FastGPT link修改 config.json 配置文件，在 VectorModels 中加入 M3E 模型：</description></item><item><title>接入 ChatGLM2-m3e 模型</title><link>/docs/development/custom-models/chatglm2-m3e/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/custom-models/chatglm2-m3e/</guid><description>前言 linkFastGPT 默认使用了 OpenAI 的 LLM 模型和向量模型，如果想要私有化部署的话，可以使用 ChatGLM2 和 m3e-large 模型。以下是由用户@不做了睡大觉 提供的接入方法。该镜像直接集成了 M3E-Large 和 ChatGLM2-6B 模型，可以直接使用。
+部署镜像 link 镜像名: stawky/chatglm2-m3e:latest 国内镜像名: registry.cn-hangzhou.aliyuncs.com/fastgpt_docker/chatglm2-m3e:latest 端口号: 6006 # 设置安全凭证（即oneapi中的渠道密钥）
+默认值：sk-aaabbbcccdddeeefffggghhhiiijjjkkk
+也可以通过环境变量引入：sk-key。有关docker环境变量引入的方法请自寻教程，此处不再赘述。 接入 One API link为 chatglm2 和 m3e-large 各添加一个渠道，参数如下：
+这里我填入 m3e 作为向量模型，chatglm2 作为语言模型
+测试 linkcurl 例子：
+curl --location --request POST &amp;#39;https://domain/v1/embeddings&amp;#39; \
+--header &amp;#39;Authorization: Bearer sk-aaabbbcccdddeeefffggghhhiiijjjkkk&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data-raw &amp;#39;{
+&amp;#34;model&amp;#34;: &amp;#34;m3e&amp;#34;,
+&amp;#34;input&amp;#34;: [&amp;#34;laf是什么&amp;#34;]
+}&amp;#39; curl --location --request POST &amp;#39;https://domain/v1/chat/completions&amp;#39; \
+--header &amp;#39;Authorization: Bearer sk-aaabbbcccdddeeefffggghhhiiijjjkkk&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data-raw &amp;#39;{
+&amp;#34;model&amp;#34;: &amp;#34;chatglm2&amp;#34;,
+&amp;#34;messages&amp;#34;: [{&amp;#34;role&amp;#34;: &amp;#34;user&amp;#34;, &amp;#34;content&amp;#34;: &amp;#34;Hello!</description></item><item><title>Nginx 中转</title><link>/docs/development/proxy/nginx/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/proxy/nginx/</guid><description>登录 Sealos linkSealos
+创建应用 link打开 「应用管理」，点击「新建应用」：
+填写基本配置 link务必开启外网访问，复制外网访问提供的地址。
+添加配置文件 link 复制下面这段配置文件，注意 server_name 后面的内容替换成第二步的外网访问地址。
+user nginx; worker_processes auto; worker_rlimit_nofile 51200; events { worker_connections 1024; } http { resolver 8.8.8.8; proxy_ssl_server_name on; access_log off; server_names_hash_bucket_size 512; client_header_buffer_size 64k; large_client_header_buffers 4 64k; client_max_body_size 50M; proxy_connect_timeout 240s; proxy_read_timeout 240s; proxy_buffer_size 128k; proxy_buffers 4 256k; server { listen 80; server_name tgohwtdlrmer.cloud.sealos.io; # 这个地方替换成 Sealos 提供的外网地址 location ~ /openai/(.*) { proxy_pass https://api.openai.com/$1$is_args$args; proxy_set_header Host api.openai.com; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # 如果响应是流式的 proxy_set_header Connection &amp;#39;&amp;#39;; proxy_http_version 1.</description></item><item><title>HTTP 代理中转</title><link>/docs/development/proxy/http_proxy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/proxy/http_proxy/</guid><description>如果你有代理工具（例如 Clash 或者 sing-box），也可以使用 HTTP 代理来访问 OpenAI。只需要添加以下两个环境变量即可：
+AXIOS_PROXY_HOST= AXIOS_PROXY_PORT= 以 Clash 为例，建议指定 api.openai.com 走代理，其他请求都直连。示例配置如下：
+mixed-port: 7890 allow-lan: false bind-address: &amp;#39;*&amp;#39; mode: rule log-level: warning dns: enable: true ipv6: false nameserver: - 8.8.8.8 - 8.8.4.4 cache-size: 400 proxies: - proxy-groups: - { name: &amp;#39;♻️ 自动选择&amp;#39;, type: url-test, proxies: [香港V01×1.5], url: &amp;#39;https://api.openai.com&amp;#39;, interval: 3600} rules: - &amp;#39;DOMAIN-SUFFIX,api.openai.com,♻️ 自动选择&amp;#39; - &amp;#39;MATCH,DIRECT&amp;#39; 然后给 FastGPT 添加两个环境变量：
+AXIOS_PROXY_HOST=127.0.0.1 AXIOS_PROXY_PORT=7890</description></item><item><title>Cloudflare Worker 中转</title><link>/docs/development/proxy/cloudflare/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/proxy/cloudflare/</guid><description>参考 &amp;ldquo;不做了睡觉&amp;rdquo; 的教程
+workers 配置文件
+const TELEGRAPH_URL = &amp;#39;https://api.openai.com&amp;#39;; addEventListener(&amp;#39;fetch&amp;#39;, (event) =&amp;gt; { event.respondWith(handleRequest(event.request)); }); async function handleRequest(request) { // 安全校验 if (request.headers.get(&amp;#39;auth&amp;#39;) !== &amp;#39;auth_code&amp;#39;) { return new Response(&amp;#39;UnAuthorization&amp;#39;, { status: 403 }); } const url = new URL(request.url); url.host = TELEGRAPH_URL.replace(/^https?:\/\//, &amp;#39;&amp;#39;); const modifiedRequest = new Request(url.toString(), { headers: request.headers, method: request.method, body: request.body, redirect: &amp;#39;follow&amp;#39; }); const response = await fetch(modifiedRequest); const modifiedResponse = new Response(response.body, response); // 添加允许跨域访问的响应头 modifiedResponse.</description></item><item><title>数据集</title><link>/docs/development/design/dataset/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/design/dataset/</guid><description>文件与数据的关系 link在 FastGPT 中，文件会通过 MongoDB 的 FS 存储，而具体的数据会通过 PostgreSQL 存储，PG 中的数据会有一列 file_id，关联对应的文件。考虑到旧版本的兼容，以及手动输入、标注数据等，我们给 file_id 增加了一些特殊的值，如下：
+manual: 手动输入 mark: 手动标注的数据 注意，file_id 仅在插入数据时会写入，变更时无法修改。
+文件导入流程 link 上传文件到 MongoDB 的 FS 中，获取 file_id，此时文件标记为 unused 状态 浏览器解析文件，获取对应的文本和 chunk 给每个 chunk 打上 file_id 点击上传数据：将文件的状态改为 used，并将数据推送到 mongo training 表中等待训练 由训练线程从 mongo 中取数据，并在获取向量后插入到 pg。</description></item><item><title>商业版</title><link>/docs/commercial/intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/commercial/intro/</guid><description>简介 linkFastGPT 商业版是基于 FastGPT 开源版的增强版本，增加了一些独有的功能。只需安装一个商业版镜像，并在开源版基础上填写对应的内网地址，即可快速使用商业版。
+功能差异 link 开源版 商业版 线上版 应用管理与高级编排 ✅ ✅ ✅ 文档知识库 ✅ ✅ ✅ 外部使用 ✅ ✅ ✅ 自定义版权信息 ❌ ✅ ✅ 多租户与支付 ❌ ✅ ✅ 团队空间 ❌ ✅ ✅ 外部使用限制 ❌ ✅ ✅ 内容审核 ❌ ✅ ✅ web站点同步 ❌ ✅ ✅ 管理后台 ❌ ✅ ✅ Saas服务商业授权 ❌ ✅ ✅ 图片知识库 ❌ 设计中 设计中 自动规划召回 ❌ 设计中 设计中 商业版软件价格 linkFastGPT 商业版软件根据不同的部署方式，分为 3 类收费模式。下面列举各种部署方式一些常规内容，如仍有问题，可联系咨询
+共有服务
+Saas 商业授权许可 - 在商业版有效期内，可提供任意形式的商业服务。 首次免费帮助部署。 优先问题工单处理。 特有服务</description></item><item><title>线上版定价</title><link>/docs/pricing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/pricing/</guid><description>Tokens 说明 linkOpenAI 的 API 官方计费模式为：按每次 API 请求内容和返回内容 tokens 长度来定价。每个模型具有不同的计价方式，以每 1,000 个 tokens 消耗为单位定价。其中 1,000 个 tokens 约为 900 个英文，约 600 个中文（不是很准确，与上下长度有关，相同的词出现越多，词:Tokens 的比例越大）。平台的 tokens 数量计算算法与 OpenAI 一致，您可以随时通过「使用记录」来查看余额消耗明细的说明，来对比计算是否一致。
+FastGPT 线上计费 linkhttps://fastgpt.in 采用按量计费的模式，最新计费标准可在 账号-计费标准 查看。同时可以在 账号-使用记录 中查看具体使用情况，</description></item><item><title>开源协议</title><link>/docs/agreement/open-source/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/agreement/open-source/</guid><description>FastGPT 项目在 Apache License 2.0 许可下开源，同时包含以下附加条件：
+FastGPT 允许被用于商业化，例如作为其他应用的“后端即服务”使用，或者作为应用开发平台提供给企业。然而，当满足以下条件时，必须联系作者获得商业许可：
+多租户 SaaS 服务：除非获得 FastGPT 的明确书面授权，否则不得使用 fastgpt.in 的源码来运营与 fastgpt.in 服务版类似的多租户 SaaS 服务。 LOGO 及版权信息：在使用 FastGPT 的过程中，不得移除或修改 FastGPT 控制台内的 LOGO 或版权信息。 请通过电子邮件 yujinlong@sealos.io 联系我们咨询许可事宜。
+作为贡献者，你必须同意将你贡献的代码用于以下用途：
+生产者有权将开源协议调整为更严格或更宽松的形式。 可用于商业目的，例如 FastGPT 的云服务。 除此之外，所有其他权利和限制均遵循 Apache License 2.0。如果你需要更多详细信息，可以参考 Apache License 2.0 的完整版本。本产品的交互设计受到外观专利保护。© 2023 Sealos.</description></item><item><title>免责声明</title><link>/docs/agreement/disclaimer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/agreement/disclaimer/</guid><description>由于生成式 AI 的特性，其在不同国家的管控措施也会有所不同。请所有使用者务必遵守所在地的相关法律。
+免责声明：以任何违反 FastGPT 可接受使用政策的方式使用，包括但不限于法律、法规、政府命令或法令禁止的任何用途，或任何侵犯他人权利的使用；由使用者自行承担。我们对由客户使用产生的问题概不负责。
+下面是各国对生成式AI的管控条例的链接：
+中国生成式人工智能服务管理办法（征求意见稿）
+内容要求 link我们禁止使用我们对接的模型服务生成可能对个人或社会造成伤害的内容。保障平台的安全性，是长期稳定运营的关键。如发现任何利用平台接入模型能力进行违规内容生成和使用，将立即封号，账号余额不退。
+剥削和虐待 禁止描述、展示或宣扬儿童性剥削或性虐待的内容，无论法律是否禁止。这包括涉及儿童或使儿童色情的内容。 禁止描述或用于培养儿童的内容。修饰是成年人以剥削，特别是性剥削为目的与儿童建立关系的行为。这包括以性剥削、贩运或其他形式剥削为目的与儿童交流。 未经同意的私密内容 服务禁止描述、提供或宣传未经同意的亲密活动的内容。 禁止描述、提供特征或宣传或用于招揽商业性活动和性服务的内容。这包括鼓励和协调真正的性活动。 禁止描述或用于人口贩运目的的内容。这包括招募人员、便利交通、支付和助长对人的剥削，如强迫劳动、家庭奴役、役、强迫婚姻和强迫医疗程序。 自杀和自残，禁止描述、赞美、支持、促进、美化、鼓励和/或指导个人自残或自杀的内容。 暴力内容和行为 禁止描述、展示或宣扬血腥暴力或血腥的内容。 禁止描绘恐怖主义行为的内容；赞扬或支持恐怖组织、恐怖行为者或暴力恐怖意识形态；鼓励恐怖活动；向恐怖组织或恐怖事业提供援助；或协助恐怖组织招募成员。 禁止通过暴力威胁或煽动来鼓吹或宣扬对他人的暴力行为的内容。 仇恨言论和歧视 禁止基于实际或感知的种族、民族、国籍、性别、性别认同、性取向、宗教信仰、年龄、残疾状况、种姓或与系统性偏见或边缘化相关的任何其他特征等特征攻击、诋毁、恐吓、降级、针对或排斥个人或群体的内容。 禁止针对个人或群体进行威胁、恐吓、侮辱、贬低或贬低的语言或图像、宣扬身体伤害或其他虐待行为（如跟踪）的内容。 禁止故意欺骗并可能对公共利益产生不利影响的内容，包括与健康、安全、选举诚信或公民参与相关的欺骗性或不真实内容。 直接支持非法主动攻击或造成技术危害的恶意软件活动的内容，例如提供恶意可执行文件、组织拒绝服务攻击或管理命令和控制服务器。</description></item><item><title>加入社区</title><link>/docs/community/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/community/</guid><description>FastGPT 是一个由用户和贡献者参与推动的开源项目，如果您对产品使用存在疑问和建议，可尝试以下方式寻求支持。我们的团队与社区会竭尽所能为您提供帮助。
+📱 扫码加入社区微信交流群👇
+🐞 请将任何 FastGPT 的 Bug、问题和需求提交到 GitHub Issue。</description></item></channel></rss>

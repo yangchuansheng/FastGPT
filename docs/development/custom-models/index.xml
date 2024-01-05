@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>本地模型使用 on FastGPT</title><link>/docs/development/custom-models/</link><description>Recent content in 本地模型使用 on FastGPT</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="/docs/development/custom-models/index.xml" rel="self" type="application/rss+xml"/><item><title>接入 ChatGLM2-6B</title><link>/docs/development/custom-models/chatglm2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/custom-models/chatglm2/</guid><description>前言 linkFastGPT 允许你使用自己的 OpenAI API KEY 来快速调用 OpenAI 接口，目前集成了 GPT-3.5, GPT-4 和 embedding，可构建自己的知识库。但考虑到数据安全的问题，我们并不能将所有的数据都交付给云端大模型。
+那么如何在 FastGPT 上接入私有化模型呢？本文就以清华的 ChatGLM2 为例，为各位讲解如何在 FastGPT 中接入私有化模型。
+ChatGLM2-6B 简介 linkChatGLM2-6B 是开源中英双语对话模型 ChatGLM-6B 的第二代版本，具体介绍可参阅 ChatGLM2-6B 项目主页。
+warning 注意，ChatGLM2-6B 权重对学术研究完全开放，在获得官方的书面许可后，亦允许商业使用。本教程只是介绍了一种用法，无权给予任何授权！
+推荐配置 link依据官方数据，同样是生成 8192 长度，量化等级为 FP16 要占用 12.8GB 显存、int8 为 8.1GB 显存、int4 为 5.1GB 显存，量化后会稍微影响性能，但不多。
+因此推荐配置如下：
+类型 内存 显存 硬盘空间 启动命令 fp16 &amp;gt;=16GB &amp;gt;=16GB &amp;gt;=25GB python openai_api.py 16 int8 &amp;gt;=16GB &amp;gt;=9GB &amp;gt;=25GB python openai_api.py 8 int4 &amp;gt;=16GB &amp;gt;=6GB &amp;gt;=25GB python openai_api.</description></item><item><title>接入 ReRank 重排模型</title><link>/docs/development/custom-models/reranker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/custom-models/reranker/</guid><description>推荐配置 link推荐配置如下：
+类型 内存 显存 硬盘空间 启动命令 base &amp;gt;=4GB &amp;gt;=3GB &amp;gt;=8GB python app.py 部署 link环境要求 link Python 3.10.11 CUDA 11.7 科学上网环境 源码部署 link 根据上面的环境配置配置好环境，具体教程自行 GPT； 下载 python 文件 在命令行输入命令 pip install -r requirments.txt； 按照https://huggingface.co/BAAI/bge-reranker-base下载模型仓库到app.py同级目录 添加环境变量 export ACCESS_TOKEN=XXXXXX 配置 token，这里的 token 只是加一层验证，防止接口被人盗用，默认值为 ACCESS_TOKEN ； 执行命令 python app.py。 然后等待模型下载，直到模型加载完毕为止。如果出现报错先问 GPT。
+启动成功后应该会显示如下地址：
+这里的 http://0.0.0.0:6006 就是连接地址。
+docker 部署 link 镜像名: luanshaotong/reranker:v0.1 端口号: 6006 大小：约8GB 设置安全凭证（即oneapi中的渠道密钥）
+ACCESS_TOKEN=mytoken 运行命令示例
+docker run -d --name reranker -p 6006:6006 -e ACCESS_TOKEN=mytoken luanshaotong/reranker:v0.</description></item><item><title>接入 M3E 向量模型</title><link>/docs/development/custom-models/m3e/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/custom-models/m3e/</guid><description>前言 linkFastGPT 默认使用了 openai 的 embedding 向量模型，如果你想私有部署的话，可以使用 M3E 向量模型进行替换。M3E 向量模型属于小模型，资源使用不高，CPU 也可以运行。下面教程是基于 “睡大觉” 同学提供的一个的镜像。
+部署镜像 link镜像名: stawky/m3e-large-api:latest
+国内镜像： registry.cn-hangzhou.aliyuncs.com/fastgpt_docker/m3e-large-api:latest 端口号: 6008 环境变量：
+# 设置安全凭证（即oneapi中的渠道密钥） 默认值：sk-aaabbbcccdddeeefffggghhhiiijjjkkk 也可以通过环境变量引入：sk-key。有关docker环境变量引入的方法请自寻教程，此处不再赘述。 接入 One API link添加一个渠道，参数如下：
+测试 linkcurl 例子：
+curl --location --request POST &amp;#39;https://domain/v1/embeddings&amp;#39; \ --header &amp;#39;Authorization: Bearer xxxx&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ --data-raw &amp;#39;{ &amp;#34;model&amp;#34;: &amp;#34;m3e&amp;#34;, &amp;#34;input&amp;#34;: [&amp;#34;laf是什么&amp;#34;] }&amp;#39; Authorization 为 sk-key。model 为刚刚在 One API 填写的自定义模型。
+接入 FastGPT link修改 config.json 配置文件，在 VectorModels 中加入 M3E 模型：</description></item><item><title>接入 ChatGLM2-m3e 模型</title><link>/docs/development/custom-models/chatglm2-m3e/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/custom-models/chatglm2-m3e/</guid><description>前言 linkFastGPT 默认使用了 OpenAI 的 LLM 模型和向量模型，如果想要私有化部署的话，可以使用 ChatGLM2 和 m3e-large 模型。以下是由用户@不做了睡大觉 提供的接入方法。该镜像直接集成了 M3E-Large 和 ChatGLM2-6B 模型，可以直接使用。
+部署镜像 link 镜像名: stawky/chatglm2-m3e:latest 国内镜像名: registry.cn-hangzhou.aliyuncs.com/fastgpt_docker/chatglm2-m3e:latest 端口号: 6006 # 设置安全凭证（即oneapi中的渠道密钥）
+默认值：sk-aaabbbcccdddeeefffggghhhiiijjjkkk
+也可以通过环境变量引入：sk-key。有关docker环境变量引入的方法请自寻教程，此处不再赘述。 接入 One API link为 chatglm2 和 m3e-large 各添加一个渠道，参数如下：
+这里我填入 m3e 作为向量模型，chatglm2 作为语言模型
+测试 linkcurl 例子：
+curl --location --request POST &amp;#39;https://domain/v1/embeddings&amp;#39; \
+--header &amp;#39;Authorization: Bearer sk-aaabbbcccdddeeefffggghhhiiijjjkkk&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data-raw &amp;#39;{
+&amp;#34;model&amp;#34;: &amp;#34;m3e&amp;#34;,
+&amp;#34;input&amp;#34;: [&amp;#34;laf是什么&amp;#34;]
+}&amp;#39; curl --location --request POST &amp;#39;https://domain/v1/chat/completions&amp;#39; \
+--header &amp;#39;Authorization: Bearer sk-aaabbbcccdddeeefffggghhhiiijjjkkk&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data-raw &amp;#39;{
+&amp;#34;model&amp;#34;: &amp;#34;chatglm2&amp;#34;,
+&amp;#34;messages&amp;#34;: [{&amp;#34;role&amp;#34;: &amp;#34;user&amp;#34;, &amp;#34;content&amp;#34;: &amp;#34;Hello!</description></item></channel></rss>

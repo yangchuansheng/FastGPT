@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>模块介绍 on FastGPT</title><link>/docs/workflow/modules/</link><description>Recent content in 模块介绍 on FastGPT</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="/docs/workflow/modules/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 对话</title><link>/docs/workflow/modules/ai_chat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/ai_chat/</guid><description>特点 link 可重复添加（复杂编排时防止线太乱，可以更美观） 有外部输入 有静态配置 触发执行 核心模块 参数说明 link对话模型 link可以通过 config.json 配置可选的对话模型，通过 one-api 来实现多模型接入。
+温度 &amp;amp; 回复上限 link 温度：越低回答越严谨，少废话（实测下来，感觉差别不大） 回复上限：最大回复 token 数量（只有 OpenAI 模型有效）。注意，是回复！不是总 tokens。 系统提示词（可被外部输入覆盖） link被放置在上下文数组的最前面，role 为 system，用于引导模型。具体用法参考各搜索引擎的教程~
+限定词（可被外部输入覆盖） link与系统提示词类似，role 也是 system 类型，只不过位置会被放置在问题前，拥有更强的引导作用。
+引用内容 link接收一个外部输入的数组，主要是由【知识库搜索】模块生成，也可以由 HTTP 模块从外部引入。数据结构示例如下：
+type DataType = { dataset_id?: string; id?: string; q: string; a: string; source?: string; }; // 如果是外部引入的内容，尽量不要携带 dataset_id 和 id const quoteList: DataType[] = [ { dataset_id: &amp;#39;11&amp;#39;, id: &amp;#39;222&amp;#39;, q: &amp;#39;你还&amp;#39;, a: &amp;#39;哈哈&amp;#39;, source: &amp;#39;&amp;#39; }, { dataset_id: &amp;#39;11&amp;#39;, id: &amp;#39;333&amp;#39;, q: &amp;#39;你还&amp;#39;, a: &amp;#39;哈哈&amp;#39;, source: &amp;#39;&amp;#39; }, { dataset_id: &amp;#39;11&amp;#39;, id: &amp;#39;444&amp;#39;, q: &amp;#39;你还&amp;#39;, a: &amp;#39;哈哈&amp;#39;, source: &amp;#39;&amp;#39; } ]; 完整上下文组成 link最终发送给 LLM 大模型的数据是一个数组，内容和顺序如下：</description></item><item><title>内容提取</title><link>/docs/workflow/modules/content_extract/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/content_extract/</guid><description>特点 link 可重复添加 有外部输入 需要手动配置 触发执行 function_call 模块 核心模块 功能 link从文本中提取结构化数据，通常是配合 HTTP 模块实现扩展。也可以做一些直接提取操作，例如：翻译。
+参数说明 link提取要求描述 link顾名思义，给模型设置一个目标，需要提取哪些内容。
+示例 1
+你是实验室预约助手，从对话中提取出姓名，预约时间，实验室号。当前时间 {{cTime}}
+示例 2
+你是谷歌搜索助手，从对话中提取出搜索关键词
+示例 3
+将我的问题直接翻译成英文，不要回答问题
+历史记录 link通常需要一些历史记录，才能更完整的提取用户问题。例如上图中需要提供姓名、时间和实验室名，用户可能一开始只给了时间和实验室名，没有提供自己的姓名。再经过一轮缺失提示后，用户输入了姓名，此时需要结合上一次的记录才能完整的提取出 3 个内容。
+目标字段 link目标字段与提取的结果相对应，从上图可以看到，每增加一个字段，输出会增加一个对应的出口。
+key: 字段的唯一标识，不可重复！ 字段描述：描述该字段是关于什么的，例如：姓名、时间、搜索词等等。 必须：是否强制模型提取该字段，可能提取出来是空字符串。 输出介绍 link 字段完全提取：说明用户的问题中包含需要提取的所有内容。 提取字段缺失：与 “字段完全提取” 对立，有缺失提取的字段时触发。 完整提取结果: 一个 JSON 字符串，包含所有字段的提取结果。 目标字段提取结果：类型均为字符串。</description></item><item><title>用户引导</title><link>/docs/workflow/modules/guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/guide/</guid><description>特点 link 仅可添加 1 个 无外部输入 不参与实际调度 如图，可以在用户提问前给予一定引导。并可以设置引导问题。</description></item><item><title>自定义反馈</title><link>/docs/workflow/modules/custom_feedback/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/custom_feedback/</guid><description>该模块为临时模块，后续会针对该模块进行更全面的设计。
+特点 link 可重复添加 无外部输入 自动执行 介绍 link自定义反馈模块，可以为你的对话增加一个反馈标记，从而方便在后台更好的分析对话的数据。
+在调试模式下，不会记录反馈内容，而是直接提示: 自动反馈测试: 反馈内容。
+在对话模式（对话、分享窗口、带 chatId 的 API 调用）时，会将反馈内容记录到对话日志中。（会延迟60s记录）
+作用 link自定义反馈模块的功能类似于程序开发的埋点，便于你观测的对话中的数据。</description></item><item><title>新 HTTP 模块</title><link>/docs/workflow/modules/http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/http/</guid><description>特点 link 可重复添加 有外部输入 手动配置 触发执行 核中核模块 介绍 linkHTTP 模块会向对应的地址发送一个 POST/GET 请求，携带部分系统参数及自定义参数，并接收一个 JSON 响应值，字段也是自定义。
+你还可以通过 JSON 传入自定义的请求头。 POST 请求中，数据会被放置在 body 中。 GET 请求中，数据会被放置在 query 中。 在出入参数中，你都可以通过 xxx.xxx 来代表嵌套的对象。 参数结构 link系统参数说明 link appId: 应用的ID chatId: 当前对话的ID，测试模式下不存在。 responseChatItemId: 当前对话中，响应的消息ID，测试模式下不存在。 variables: 当前对话的全局变量。 data: 自定义传递的参数。 嵌套对象使用 link入参
+假设我们设计了3个输入。
+user.name (string) user.age (number) type (string) 最终组成的对象为:
+{ &amp;#34;user&amp;#34;: { &amp;#34;name&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;age&amp;#34;: &amp;#34;&amp;#34; }, &amp;#34;type&amp;#34;: &amp;#34;&amp;#34; } 出参
+假设接口的输出结构为:
+{ &amp;#34;message&amp;#34;: &amp;#34;测试&amp;#34;, &amp;#34;data&amp;#34;:{ &amp;#34;name&amp;#34;: &amp;#34;name&amp;#34;, &amp;#34;age&amp;#34;: 10 } } 那么，自定出参的key可以设置为:</description></item><item><title>用户问题</title><link>/docs/workflow/modules/input/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/input/</guid><description>特点 link 可重复添加（防止复杂编排时线太乱，重复添加可以更美观） 无外部输入 流程入口 自动执行</description></item><item><title>知识库搜索</title><link>/docs/workflow/modules/dataset_search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/dataset_search/</guid><description>特点 link 可重复添加（复杂编排时防止线太乱，可以更美观） 有外部输入 有静态配置 触发执行 核心模块 参数说明 link输入 - 关联的知识库 link可以选择一个或多个相同向量模型的知识库，用于向量搜索。
+输入 - 相似度 link学名称为距离，两个向量之间距离，可以认为是两个向量的相似度，又可以映射成文本之间的相似度。
+需要注意的是，不同的向量模型之间的相似度是不能比较的，因为他们的距离值计算出来差距很大。例如，openai 的 embedding 模型，通常 0.8 以上的才是较为准确的内容，而 M3E 模型则是 0.35。
+输入 - 单次搜索上限 link每次触发搜索模块时，最多取 n 条作为最终引用，又称 topN。需要注意的是，取了 n 条引用不代表对话模型都可以使用，还会受对话模型最大 Tokens 的影响。
+输出 - 搜索结果 link输出部分给了两个 boolean 类型的搜索结果，以便根据搜索结果进行不同的处理，通常会有下方两个处理方式：
+直接回复特定内容 对接普通的 gpt 当然，你也可以连接到 HTTP 模块，从而实现无法从知识搜索到内容时，去进行联网搜索或者维基百科搜索。
+输出 - 引用内容 link以数组格式输出引用，长度可以为 0。意味着，即使没有搜索到内容，这个输出链路也会走通。</description></item><item><title>问题分类</title><link>/docs/workflow/modules/question_classify/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/question_classify/</guid><description>特点 link 可重复添加 有外部输入 需要手动配置 触发执行 function_call 模块 功能 link可以将用户的问题进行分类，分类后执行不同操作。在一些较模糊的场景中，分类效果不是很明显。
+参数说明 link系统提示词 link被放置在对话最前面，可用于补充说明分类内容的定义。例如问题会被分为：
+打招呼 Laf 常见问题 其他问题 由于 Laf 不是一个明确的东西，需要给它一个定义，此时提示词里可以填入 Laf 的定义：
+Laf 是云开发平台，可以快速的开发应用 Laf 是一个开源的 BaaS 开发平台（Backend as a Service) Laf 是一个开箱即用的 serverless 开发平台 Laf 是一个集「函数计算」、「数据库」、「对象存储」等于一身的一站式开发平台 Laf 可以是开源版的腾讯云开发、开源版的 Google Firebase、开源版的 UniCloud 聊天记录 link适当增加一些聊天记录，可以联系上下文进行分类。
+用户问题 link用户输入的内容。
+分类内容 link依然以这 3 个分类为例，可以看到最终组成的 Function。其中返回值由系统随机生成，不需要关心。
+打招呼 Laf 常见问题 其他问题 const agentFunction = { name: agentFunName, description: &amp;#39;判断用户问题的类型属于哪方面，返回对应的枚举字段&amp;#39;, parameters: { type: &amp;#39;object&amp;#39;, properties: { type: { type: &amp;#39;string&amp;#39;, description: `打招呼，返回: abc；Laf 常见问题，返回：vvv；其他问题，返回：aaa` enum: [&amp;#34;abc&amp;#34;,&amp;#34;vvv&amp;#34;,&amp;#34;aaa&amp;#34;] } }, required: [&amp;#39;type&amp;#39;] } }; 上面的 Function 必然会返回 type = abc，vvv，aaa 其中一个值，从而实现分类判断。</description></item><item><title>指定回复</title><link>/docs/workflow/modules/reply/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/reply/</guid><description>特点 link 可重复添加（防止复杂编排时线太乱，重复添加可以更美观） 可手动输入 可外部输入 会输出结果给客户端 制定回复模块通常用户特殊状态回复，当然你也可以像图 2 一样，实现一些比较骚的操作~ 触发逻辑非常简单：
+一种是写好回复内容，通过触发器触发。 一种是不写回复内容，直接由外部输入触发，并回复输入的内容。 图 1 图 2</description></item><item><title>触发器</title><link>/docs/workflow/modules/trigger/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/trigger/</guid><description>细心的同学可以发现，在每个功能模块里都会有一个叫【触发器】的外部输入，并且是 any 类型。
+它的核心作用就是控制模块的执行时机，以下图两个知识库搜索中的【AI 对话】模块为例子：
+图 1 图 2 【知识库搜索】模块中，由于引用内容始终会有输出，会导致【AI 对话】模块的引用内容输入无论有没有搜到内容都会被赋值。如果此时不连接触发器（图 2），在搜索结束后必定会执行【AI 对话】模块。
+有时候，你可能希望空搜索时候进行额外处理，例如：回复固定内容、调用其他提示词的 GPT、发送一个 HTTP 请求…… 此时就需要用到触发器，需要将 搜索结果不为空 和 触发器 连接起来。
+当搜索结果为空时，【知识库搜索】模块不会输出 搜索结果不为空 的结果，因此 【AI 对话】 模块的触发器始终为空，便不会执行。
+总之，记住模块执行的逻辑就可以灵活的使用触发器：外部输入字段（有连接的才有效）全部被赋值时才会被执行。</description></item><item><title>全局变量</title><link>/docs/workflow/modules/variable/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/variable/</guid><description>特点 link 仅可添加 1 个 需要手动配置 对其他模块有影响 可作为用户引导 说明 link可以在对话前设置一些问题，让用户输入或选择，并将用户输入/选择的结果注入到其他模块中。目前仅会注入到 string 类型的数据里（对应蓝色圆圈的输入）。
+如下图，定义了两个变量：目标语言和下拉框测试（忽略）
+用户在对话前会被要求先填写目标语言，配合用户引导，我们就构建了一个简单的翻译机器人。目标语言的 key：language 被写入到【AI 对话】模块的限定词里。
+通过完整对话记录我们可以看到，实际的限定词从：“将我的问题直接翻译成{{language}}” 变成了 “将我的问题直接翻译成英语”，因为 {{language}} 被变量替换了。
+系统级变量 link除了用户自定义设置的变量外，还会有一些系统变量：
+cTime: 当前时间。例如：2023/3/3 20:22</description></item><item><title>判断器</title><link>/docs/workflow/modules/tfswitch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/tfswitch/</guid><description>特点 link 可重复添加 有外部输入 触发执行 功能 link对任意输入内容进行 True False 输出，默认情况下，当传入的内容为 false, undefined, null,0,none 时，会输出 false。
+也可以增加自定义规则来补充输出 false 的内容，每行代表一个匹配规则，支持正则表达式。
+根据上方示例图的匹配规则，当我们输入123 hi 你好 和任意手机号码时（正则匹配）同样也会输出 False 。
+作用 link适用场景有：让大模型做判断后输出固定内容，根据大模型回复内容判断是否触发后续模块。</description></item><item><title>文本加工</title><link>/docs/workflow/modules/text_editor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/text_editor/</guid><description>特点 link 可重复添加 有外部输入 触发执行 手动配置 功能 link对输入文本进行固定加工处理，入参仅支持字符串和数字格式，入参以变量形式使用在文本编辑区域。
+根据上方示例图的处理方式，对任何输入都会在前面拼接“我的问题是：”。
+作用 link给任意模块输入自定格式文本，或处理 AI 模块系统提示词。
+示例 link 接入谷歌搜索</description></item><item><title>问题补全</title><link>/docs/workflow/modules/coreferenceresolution/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/workflow/modules/coreferenceresolution/</guid><description>特点 link 可重复添加 有外部输入 触发执行 背景 link在 RAG 中，我们需要根据输入的问题去数据库里执行 embedding 搜索，查找相关的内容，从而查找到相似的内容（简称知识库搜索）。
+在搜索的过程中，尤其是连续对话的搜索，我们通常会发现后续的问题难以搜索到合适的内容，其中一个原因是知识库搜索只会使用“当前”的问题去执行。看下面的例子：
+用户在提问“第二点是什么”的时候，只会去知识库里查找“第二点是什么”，压根查不到内容。实际上需要查询的是“QA结构是什么”。因此我们需要引入一个【问题补全】模块，来对用户当前的问题进行补全，从而使得知识库搜索能够搜索到合适的内容。使用补全后效果如下：
+功能 link调用 AI 去对用户当前的问题进行补全。目前主要是补全“指代”词，使得检索词更加的完善可靠，从而增强上下文连续对话的知识库搜索能力。
+遇到最大的难题在于：模型对于【补全】的概念可能不清晰，且对于长上下文往往无法准确的知道应该如何补全。
+示例 link 接入谷歌搜索</description></item></channel></rss>

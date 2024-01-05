@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>基础教程 on FastGPT</title><link>/docs/course/</link><description>Recent content in 基础教程 on FastGPT</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="/docs/course/index.xml" rel="self" type="application/rss+xml"/><item><title>快速上手</title><link>/docs/course/quick-start/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/course/quick-start/</guid><description>更多使用技巧，查看视屏教程
+知识库 link开始前，请准备一份测试电子文档，WORD，PDF，TXT，excel，markdown 都可以，比如公司休假制度，不涉密的销售说辞，产品知识等等。
+这里使用 FastGPT 中文 README 文件为例。
+首先我们需要创建一个知识库。
+知识库创建完之后我们需要上传一点内容。
+上传内容这里有四种模式：
+手动输入：手动输入问答对，是最精准的数据 QA 拆分：选择文本文件，让AI自动生成问答对 直接分段：选择文本文件，直接将其按分段进行处理 CSV 导入：批量导入问答对 这里，我们选择 QA 拆分，让 AI 自动生成问答，若问答质量不高，可以后期手动修改。
+点击上传后我们需要等待数据处理完成，等到我们上传的文件状态为可用。
+应用 link点击「应用」按钮来新建一个应用，这里有四个模板，我们选择「知识库 + 对话引导」。
+应用创建后来再应用详情页找到「知识库」模块，把我们刚刚创建的知识库添加进去。
+添加完知识库后记得点击「保存并预览」，这样我们的应用就和知识库关联起来了。
+然后我们就可以愉快的开始聊天啦。</description></item><item><title>Web 站点同步</title><link>/docs/course/websync/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/course/websync/</guid><description>该功能目前仅向商业版用户开放。
+什么是 Web 站点同步 linkWeb 站点同步利用爬虫的技术，可以通过一个入口网站，自动捕获同域名下的所有网站，目前最多支持200个子页面。出于合规与安全角度，FastGPT 仅支持静态站点的爬取，主要用于各个文档站点快速构建知识库。
+Tips: 国内的媒体站点基本不可用，公众号、csdn、知乎等。可以通过终端发送curl请求检测是否为静态站点，例如：
+curl https://doc.fastgpt.in/docs/intro/ 如何使用 link1. 新建知识库，选择 Web 站点同步 link 2. 点击配置站点信息 link 3. 填写网址和选择器 link 好了， 现在点击开始同步，静等系统自动抓取网站信息即可。
+创建应用，绑定知识库 link 选择器如何使用 link选择器是 HTML CSS JS 的产物，你可以通过选择器来定位到你需要抓取的具体内容，而不是整个站点。使用方式为：
+首先打开浏览器调试面板（通常是 F12，或者【右键 - 检查】） link 输入对应元素的选择器 link菜鸟教程 css 选择器，具体选择器的使用方式可以参考菜鸟教程。
+上图中，我们选中了一个区域，对应的是div标签，它有 data-prismjs-copy, data-prismjs-copy-success, data-prismjs-copy-error 三个属性，这里我们用到一个就够。所以选择器是： div[data-prismjs-copy]
+除了属性选择器，常见的还有类和ID选择器。例如：
+上图 class 里的是类名（可能包含多个类名，都是空格隔开的，选择一个即可），选择器可以为：.docs-content
+多选择器使用 link在开头的演示中，我们对 FastGPT 文档是使用了多选择器的方式来选择，通过逗号隔开了两个选择器。
+我们希望选中上图两个标签中的内容，此时就需要两组选择器。一组是：.docs-content .mb-0.d-flex，含义是 docs-content 类下同时包含 mb-0和d-flex 两个类的子元素；
+另一组是.docs-content div[data-prismjs-copy]，含义是docs-content 类下包含data-prismjs-copy属性的div元素。
+把两组选择器用逗号隔开即可：.docs-content .mb-0.d-flex, .docs-content div[data-prismjs-copy]</description></item><item><title>知识库搜索参数</title><link>/docs/course/data_search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/course/data_search/</guid><description>在知识库搜索的方式上，FastGPT提供了三种方式，分别为“语义检索”“增强语义检索”“混合检索”。
+搜索模式 link语义检索 link语义检索是通过向量距离，计算用户问题与知识库内容的距离，从而得出“相似度”，当然这并不是语文上的相似度，而是数学上的。
+优点：
+相近语义理解 跨多语言理解（例如输入中文问题匹配英文知识点） 多模态理解（文本，图片，音视频等） 缺点：
+依赖模型训练效果 精度不稳定 受关键词和句子完整度影响 全文检索 link才用传统的全文检索方式。适合查找关键的主谓语等。
+混合检索 link同时使用向量检索和全文检索，并通过 RRF 公式进行两个搜索结果合并，一般情况下搜索结果会更加丰富准确。
+由于混合检索后的查找范围很大，并且无法直接进行相似度过滤，通常需要进行利用重排模型进行一次结果重新排序，并利用重排的得分进行过滤。
+结果重排 link利用ReRank模型对搜索结果进行重排，绝大多数情况下，可以有效提高搜索结果的准确率。不过，重排模型与问题的完整度（主谓语齐全）有一些关系，通常会先走问题补全后再进行搜索-重排。重排后可以得到一个0-1的得分，代表着搜索内容与问题的相关度，该分数通常比向量的得分更加精确，可以根据得分进行过滤。
+FastGPT 会使用 RRF 对重排结果、向量搜索结果、全文检索结果进行合并，得到最终的搜索结果。
+引用上限 link每次搜索最多引用n个tokens的内容。
+之所以不采用top k，是发现在混合知识库（问答库、文档库）时，不同chunk的长度差距很大，会导致top k的结果不稳定，因此采用了tokens的方式进行引用上限的控制。
+最低相关度 link一个0-1的数值，会过滤掉一些低相关度的搜索结果。
+该值仅在语义检索或使用结果重排时生效。</description></item></channel></rss>

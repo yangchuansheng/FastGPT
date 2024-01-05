@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>使用案例 on FastGPT</title><link>/docs/use-cases/</link><description>Recent content in 使用案例 on FastGPT</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="/docs/use-cases/index.xml" rel="self" type="application/rss+xml"/><item><title>AI 高级配置说明</title><link>/docs/use-cases/ai_settings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/ai_settings/</guid><description>在 FastGPT 的 AI 对话模块中，有一个 AI 高级配置，里面包含了 AI 模型的参数配置，本文详细介绍这些配置的含义。
+返回AI内容 link这是一个开关，打开的时候，当 AI 对话模块运行时，会将其输出的内容返回到浏览器（API响应）；如果关闭，AI 输出的内容不会返回到浏览器，但是生成的内容仍可以通过【AI回复】进行输出。你可以将【AI回复】连接到其他模块中。
+温度 link可选范围0-10，约大代表生成的内容约自由扩散，越小代表约严谨。调节能力有限，知识库问答场景通常设置为0。
+回复上限 link控制 AI 回复的最大 Tokens，较小的值可以一定程度上减少 AI 的废话，但也可能导致 AI 回复不完整。
+引用模板 &amp;amp; 引用提示词 link这两个参数与知识库问答场景相关，可以控制知识库相关的提示词。
+AI 对话消息组成 link想使用明白这两个变量，首先要了解传递传递给 AI 模型的消息格式。它是一个数组，FastGPT 中这个数组的组成形式为：
+[ 内置提示词（config.json 配置，一般为空） 系统提示词 （用户输入的提示词） 历史记录 问题（由引用提示词、引用模板和用户问题组成） ] 🍅
+Tips: 可以通过点击上下文按键查看完整的上下文组成，便于调试。
+引用模板和提示词设计 link引用模板和引用提示词通常是成对出现，引用提示词依赖引用模板。
+FastGPT 知识库采用 QA 对(不一定都是问答格式，仅代表两个变量)的格式存储，在转义成字符串时候会根据引用模板来进行格式化。知识库包含多个可用变量： q, a, sourceId（数据的ID）, index(第n个数据), source(数据的集合名、文件名)，score(距离得分，0-1) 可以通过 {{q}} {{a}} {{sourceId}} {{index}} {{source}} {{score}} 按需引入。下面一个模板例子：
+可以通过 知识库结构讲解 了解详细的知识库的结构。
+引用模板 link {instruction:&amp;#34;{{q}}&amp;#34;,output:&amp;#34;{{a}}&amp;#34;,source:&amp;#34;{{source}}&amp;#34;} 搜索到的知识库，会自动将 q,a,source 替换成对应的内容。每条搜索到的内容，会通过 \n 隔开。例如：</description></item><item><title>知识库结构讲解</title><link>/docs/use-cases/datasetengine/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/datasetengine/</guid><description>理解向量 linkFastGPT 采用了 RAG 中的 Embedding 方案构建知识库，要使用好 FastGPT 需要简单的理解Embedding向量是如何工作的及其特点。
+人类的文字、图片、视频等媒介是无法直接被计算机理解的，要想让计算机理解两段文字是否有相似性、相关性，通常需要将它们转成计算机可以理解的语言，向量是其中的一种方式。
+向量可以简单理解为一个数字数组，两个向量之间可以通过数学公式得出一个距离，距离越小代表两个向量的相似度越大。从而映射到文字、图片、视频等媒介上，可以用来判断两个媒介之间的相似度。向量搜索便是利用了这个原理。
+而由于文字是有多种类型，并且拥有成千上万种组合方式，因此在转成向量进行相似度匹配时，很难保障其精确性。在向量方案构建的知识库中，通常使用topk召回的方式，也就是查找前k个最相似的内容，丢给大模型去做更进一步的语义判断、逻辑推理和归纳总结，从而实现知识库问答。因此，在知识库问答中，向量搜索的环节是最为重要的。
+影响向量搜索精度的因素非常多，主要包括：向量模型的质量、数据的质量（长度，完整性，多样性）、检索器的精度（速度与精度之间的取舍）。与数据质量对应的就是检索词的质量。
+检索器的精度比较容易解决，向量模型的训练略复杂，因此数据和检索词质量优化成了一个重要的环节。
+FastGPT 中向量的结构设计 linkFastGPT 采用了 PostgresSQL 的 PG Vector 插件作为向量检索器，索引为HNSW。且PostgresSQL仅用于向量检索，MongoDB用于其他数据的存取。
+在PostgresSQL的表中，设置一个 index 字段用于存储向量，以及一个data_id用于在MongoDB中寻找对应的映射值。多个index可以对应一组data_id，也就是说，一组向量可以对应多组数据。在进行检索时，相同数据会进行合并。
+多向量的目的和使用方式 link在一组向量中，内容的长度和语义的丰富度通常是矛盾的，无法兼得。因此，FastGPT 采用了多向量映射的方式，将一组数据映射到多组向量中，从而保障数据的完整性和语义的丰富度。
+你可以为一组较长的文本，添加多组向量，从而在检索时，只要其中一组向量被检索到，该数据也将被召回。
+提高向量搜索精度的方法 link 更好分词分段：当一段话的结构和语义是完整的，并且是单一的，精度也会提高。因此，许多系统都会优化分词器，尽可能的保障每组数据的完整性。 精简index的内容，减少向量内容的长度：当index的内容更少，更准确时，检索精度自然会提高。但与此同时，会牺牲一定的检索范围，适合答案较为严格的场景。 丰富index的数量，可以为同一个chunk内容增加多组index。 优化检索词：在实际使用过程中，用户的问题通常是模糊的或是缺失的，并不一定是完整清晰的问题。因此优化用户的问题（检索词）很大程度上也可以提高精度。 微调向量模型：由于市面上直接使用的向量模型都是通用型模型，在特定领域的检索精度并不高，因此微调向量模型可以很大程度上提高专业领域的检索效果。 FastGPT 构建知识库方案 link在 FastGPT 中，整个知识库由库、集合和数据 3 部分组成。集合可以简单理解为一个文件。一个库中可以包含多个集合，一个集合中可以包含多组数据。最小的搜索单位是库，也就是说，知识库搜索时，是对整个库进行搜索，而集合仅是为了对数据进行分类管理，与搜索效果无关。（起码目前还是）
+库 集合 数据 导入数据方案1 - 直接分段导入 link选择文件导入时，可以选择直接分段方案。直接分段会利用句子分词器对文本进行一定长度拆分，最终分割中多组的q。如果使用了直接分段方案，我们建议在应用设置引用提示词时，使用通用模板即可，无需选择问答模板。
+交互 结果 导入数据方案2 - QA导入 link选择文件导入时，可以选择QA拆分方案。仍然需要使用到句子分词器对文本进行拆分，但长度比直接分段大很多。在导入后，会先调用大模型对分段进行学习，并给出一些问题和答案，最终问题和答案会一起被存储到q中。注意，新版的 FastGPT 为了提高搜索的范围，不再将问题和答案分别存储到 qa 中。
+交互 结果 导入数据方案3 - 手动录入 link在 FastGPT 中，你可以在任何一个集合中点击右上角的插入手动录入知识点，或者使用标注功能手动录入。被搜索的内容为q，补充内容(可选)为a。
+导入数据方案4 - CSV录入 link有些数据较为独特，可能需要单独的进行预处理分割后再导入 FastGPT，此时可以选择 csv 导入，可批量的将处理好的数据导入。</description></item><item><title> 接入飞书</title><link>/docs/use-cases/feishu/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/feishu/</guid><description>FastGPT 一分钟接入飞书 linkFeishu OpenAI GitHub 地址
+查看视频教程
+由于 FastGPT 的 API 接口和 OpenAI 的规范一致，可以无需变更第三方应用即可使用 FastGPT 上编排好的应用。API 使用可参考 这篇文章。编排示例，可参考 高级编排介绍
+1. 获取 FastGPT 的 OpenAPI 秘钥 link依次选择应用 -&amp;gt; 「API 访问」，然后点击「API 密钥」来创建密钥。 参考这篇文章
+2. 部署飞书服务 link推荐使用 Railway 一键部署
+参考环境变量配置：
+FastGPT 集成重点参数：
+#上一步FastGPT的OpenAPI 秘钥 OPENAI_KEY=fastgpt-z51pkjqm9nrk03a1rx2funoy #调用OpenAI的BaseUrl要换成FastGPT的 API_URL=https://api.fastgpt.in/api/openapi 3. 创建飞书机器人 link 前往 开发者平台 创建应用 , 并获取到 APPID 和 Secret 前往应用功能-机器人, 创建机器人 从 cpolar、serverless 或 Railway 获得公网地址，在飞书机器人后台的 事件订阅 板块填写。例如， http://xxxx.r6.cpolar.top 为 cpolar 暴露的公网地址 /webhook/event 为统一的应用路由 最终的回调地址为 http://xxxx.</description></item><item><title>对接 chatgpt-on-wechat</title><link>/docs/use-cases/onwechat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/onwechat/</guid><description>1 分钟对接 chatgpt-on-wechat linkchatgpt-on-wechat GitHub 地址
+由于 FastGPT 的 API 接口和 OpenAI 的规范一致，可以无需变更原来的应用即可使用 FastGPT 上编排好的应用。API 使用可参考 这篇文章。编排示例，可参考 高级编排介绍
+1. 获取 OpenAPI 秘钥 link依次选择应用 -&amp;gt; 「API访问」，然后点击「API 密钥」来创建密钥。
+warning 密钥需要自己保管好，一旦关闭就无法再复制密钥，只能创建新密钥再复制。
+3. 创建 docker-compose.yml 文件 link只需要修改 OPEN_AI_API_KEY 和 OPEN_AI_API_BASE 两个环境变量即可。其中 OPEN_AI_API_KEY 为第一步获取的秘钥，OPEN_AI_API_BASE 为 FastGPT 的 OpenAPI 地址，例如：https://api.fastgpt.in/api/v1。
+随便找一个目录，创建一个 docker-compose.yml 文件，将下面的代码复制进去。
+version: &amp;#39;2.0&amp;#39; services: chatgpt-on-wechat: image: zhayujie/chatgpt-on-wechat container_name: chatgpt-on-wechat security_opt: - seccomp:unconfined environment: OPEN_AI_API_KEY: &amp;#39;fastgpt-z51pkjqm9nrk03a1rx2funoy&amp;#39; OPEN_AI_API_BASE: &amp;#39;https://api.fastgpt.in/api/v1&amp;#39; MODEL: &amp;#39;gpt-3.5-turbo&amp;#39; CHANNEL_TYPE: &amp;#39;wx&amp;#39; PROXY: &amp;#39;&amp;#39; HOT_RELOAD: &amp;#39;False&amp;#39; SINGLE_CHAT_PREFIX: &amp;#39;[&amp;#34;bot&amp;#34;, &amp;#34;@bot&amp;#34;]&amp;#39; SINGLE_CHAT_REPLY_PREFIX: &amp;#39;&amp;#34;[bot] &amp;#34;&amp;#39; GROUP_CHAT_PREFIX: &amp;#39;[&amp;#34;@bot&amp;#34;]&amp;#39; GROUP_NAME_WHITE_LIST: &amp;#39;[&amp;#34;ChatGPT测试群&amp;#34;, &amp;#34;ChatGPT测试群2&amp;#34;]&amp;#39; IMAGE_CREATE_PREFIX: &amp;#39;[&amp;#34;画&amp;#34;, &amp;#34;看&amp;#34;, &amp;#34;找&amp;#34;]&amp;#39; CONVERSATION_MAX_TOKENS: 1000 SPEECH_RECOGNITION: &amp;#39;False&amp;#39; CHARACTER_DESC: &amp;#39;你是ChatGPT, 一个由OpenAI训练的大型语言模型, 你旨在回答并解决人们的任何问题，并且可以使用多种语言与人交流。&amp;#39; SUBSCRIBE_MSG: &amp;#39;感谢您的关注！\n这里是ChatGPT，可以自由对话。\n支持语音对话。\n支持图片输入。\n支持图片输出，画字开头的消息将按要求创作图片。\n支持tool、角色扮演和文字冒险等丰富的插件。\n输入{trigger_prefix}#help 查看详细指令。&amp;#39; EXPIRES_IN_SECONDS: 3600 USE_GLOBAL_PLUGIN_CONFIG: &amp;#39;True&amp;#39; USE_LINKAI: &amp;#39;False&amp;#39; LINKAI_API_KEY: &amp;#39;&amp;#39; LINKAI_APP_CODE: &amp;#39;&amp;#39; 4.</description></item><item><title>对接第三方 GPT 应用</title><link>/docs/use-cases/openapi/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/openapi/</guid><description>获取 API 秘钥 link依次选择应用 -&amp;gt; 「API访问」，然后点击「API 密钥」来创建密钥。
+warning 密钥需要自己保管好，一旦关闭就无法再复制密钥，只能创建新密钥再复制。
+🍅
+Tips: 安全起见，你可以设置一个额度或者过期时间，放置 key 被滥用。
+替换三方应用的变量 link OPENAI_API_BASE_URL: https://api.fastgpt.in/api (改成自己部署的域名) OPENAI_API_KEY = 上一步获取到的秘钥 ChatGPT Next Web 示例：
+ChatGPT Web 示例：</description></item><item><title> 接入微信和企业微信</title><link>/docs/use-cases/wechat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/wechat/</guid><description>FastGPT 三分钟接入微信/企业微信 link私人微信和企业微信接入的方式基本一样，不同的地方会刻意指出。
+查看视频教程
+创建APIKey link首先找到我们需要接入的应用，然后点击「外部使用」-&amp;gt;「API访问」创建一个APIKey并保存。
+配置微秘书 link打开微秘书 注册登陆后找到菜单栏「基础配置」-&amp;gt;「智能配置」，按照下图配置。
+继续往下看到 apikey 和服务器根地址，这里apikey填写我们在 FastGPT 应用外部访问中创建的 APIkey，服务器根地址填写官方地址或者私有化部署的地址，这里用官方地址示例，注意要添加/v1后缀,填写完毕后保存。
+sealos部署服务 link访问sealos 登陆进来之后打开「应用管理」-&amp;gt; 「新建应用」。
+应用名：称随便填写 镜像名：私人微信填写 aibotk/wechat-assistant 企业微信填写 aibotk/worker-assistant cpu和内存建议 1c1g 往下翻页找到「高级配置」-&amp;gt; 「编辑环境变量」
+这里需要填写四个环境变量：
+AIBOTK_KEY=微秘书 APIKEY AIBOTK_SECRET=微秘书 APISECRET WORK_PRO_TOKEN=你申请的企微 token （企业微信需要填写，私人微信不需要） 这里最后两个变量只有部署企业微信才需要，私人微信只需要填写前两个即可。
+这里环境变量我们介绍下如何填写：
+AIBOTK_KEY 和 AIBOTK_SECRET 我们需要回到微秘书找到「个人中心」,这里的 APIKEY 对应 AIBOTK_KEY ，APISECRET 对应 AIBOTK_SECRET。
+WORK_PRO_TOKEN 点击这里申请 token 然后填入即可。
+WECHATY_PUPPET_SERVICE_AUTHORITY的值复制过去就可以。
+填写完毕后点右上角「部署」，等待应用状态变为运行中。
+返回微秘书 找到「首页」，扫码登陆需要接入的微信号。
+测试 link只需要发送信息，或者拉入群聊@登陆的微信就会回复信息啦。</description></item><item><title> 打造高质量 AI 知识库(过期)</title><link>/docs/use-cases/kb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/use-cases/kb/</guid><description>前言 link自从去年 12 月 ChatGPT 发布后，带动了新的一轮应用交互革命。尤其是 GPT-3.5 接口全面放开后，LLM 应用雨后春笋般快速涌现，但因为 GPT 的可控性、随机性和合规性等问题，很多应用场景都没法落地。
+3 月时候，在 Twitter 上刷到一个老哥使用 GPT 训练自己的博客记录，并且成本非常低（比起 FT）。他给出了一个完整的流程图：
+看到这个推文后，我灵机一动，应用场景就十分清晰了。直接上手开干，在经过不到 1 个月时间，FastGPT 在原来多助手管理基础上，加入了向量搜索。于是便有了最早的一期视频：
+&lt;!DOCTYPE HTML> 3 个月过去了，FastGPT 延续着早期的思路去完善和扩展，目前在向量搜索 + LLM 线性问答方面的功能基本上完成了。不过我们始终没有出一期关于如何构建知识库的教程，趁着 V4 在开发中，我们计划介绍一期《如何在 FastGPT 上构建高质量知识库》，以便大家更好的使用。
+FastGPT 知识库完整逻辑 link在正式构建知识库前，我们先来了解下 FastGPT 是如何进行知识库检索的。首先了解几个基本概念：
+向量：将人类直观的语言（文字、图片、视频等）转成计算机可识别的语言（数组）。 向量相似度：两个向量之间可以进行计算，得到一个相似度，即代表：两个语言相似的程度。 语言大模型的一些特点：上下文理解、总结和推理。 结合上述 3 个概念，便有了 “向量搜索 + 大模型 = 知识库问答” 的公式。下图是 FastGPT V3 中知识库问答功能的完整逻辑：
+与大部分其他知识库问答产品不一样的是， FastGPT 采用了 QA 问答对进行存储，而不是仅进行 chunk（文本分块）处理。目的是为了减少向量化内容的长度，让向量能更好的表达文本的含义，从而提高搜索精准度。 此外 FastGPT 还提供了搜索测试和对话测试两种途径对数据进行调整，从而方便用户调整自己的数据。根据上述流程和方式，我们以构建一个 FastGPT 常见问题机器人为例，展示如何构建一个高质量的 AI 知识库。
+构建知识库应用 link首先，先创建一个 FastGPT 常见问题知识库</description></item></channel></rss>

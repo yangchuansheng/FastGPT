@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>开发与部署指南 on FastGPT</title><link>/docs/development/</link><description>Recent content in 开发与部署指南 on FastGPT</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="/docs/development/index.xml" rel="self" type="application/rss+xml"/><item><title>快速开始本地开发</title><link>/docs/development/intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/intro/</guid><description>本文档介绍了如何设置开发环境以构建和测试 FastGPT。
+前置依赖项 link您需要在计算机上安装和配置以下依赖项才能构建 FastGPT：
+Git Docker（构建镜像） Node.js v18.x (不推荐最新的，可能有兼容问题) pnpm 版本 8.x.x 开始本地开发 linkTips
+用户默认的时区为 Asia/Shanghai,非 linux 环境时候，获取系统时间会异常，本地开发时候，可以将用户的时区调整成 UTC（+0）。 建议先服务器装好数据库，再进行本地开发。 1. Fork 存储库 link您需要 Fork 存储库。
+2. 克隆存储库 link克隆您在 GitHub 上 Fork 的存储库：
+git clone git@github.com:&amp;lt;github_username&amp;gt;/FastGPT.git 目录简要说明
+projects 目录下为 FastGPT 应用代码。其中 app 为 FastGPT 核心应用。（后续可能会引入其他应用） NextJS 框架前后端放在一起，API 服务位于 src/pages/api 目录内。 packages 目录为共用代码，通过 workspace 被注入到 projects 中，已配置 monorepo 自动注入，无需额外打包。 3. 安装数据库 link第一次开发，需要先部署数据库，建议本地开发可以随便找一台 2C2G 的轻量小数据库实践。数据库部署教程：Docker 快速部署。部署完了，可以本地访问其数据库。
+4. 初始配置 link以下文件均在 projects/app 路径下。</description></item><item><title>Sealos 一键部署</title><link>/docs/development/sealos/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/sealos/</guid><description>Sealos 的服务器在国外，不需要额外处理网络问题，无需服务器、无需魔法、无需域名，支持高并发 &amp;amp; 动态伸缩。点击以下按钮即可一键部署 👇
+由于需要部署数据库，部署完后需要等待 2~4 分钟才能正常访问。默认用了最低配置，首次访问时会有些慢。
+点击 Sealos 提供的外网地址即可打开 FastGPT 的可视化界面。
+用户名：root
+密码就是刚刚一键部署时设置的环境变量
+修改配置文件和环境变量 link在 Sealos 中，你可以打开应用管理（App Launchpad）看到部署的 FastGPT，可以打开数据库（Database）看到对应的数据库。
+在应用管理中，选中 FastGPT，点击变更，可以看到对应的环境变量和配置文件。
+🤖
+在 Sealos 上，FastGPT 一共运行了 1 个服务和 2 个数据库，如暂停和删除请注意数据库一同操作。（你可以白天启动，晚上暂停它们，省钱大法）
+更新 link点击重启会自动拉取最新镜像更新，请确保镜像tag正确。
+部署架构图 link Sealos 使用 link简介 linkFastGPT 商业版共包含了3个应用（fastgpt, fastgpt-plus, fastgpt-admin）和2个数据库，使用多 Api Key 时候需要安装 OneAPI（一个应用和一个数据库），总计4个应用和3个数据库。
+点击右侧的详情，可以查看对应应用的详细信息。
+如何更新/升级 FastGPT link升级脚本文档先看下文档，看下需要升级哪个版本。注意，不要跨版本升级！！！！！
+例如，目前是4.5 版本，要升级到4.5.1，就先把镜像版本改成v4.5.1，执行一下升级脚本，等待完成后再继续升级。如果目标版本不需要执行初始化，则可以跳过。
+升级步骤：
+查看更新文档，确认要升级的版本，避免跨版本升级。 打开 sealos 的应用管理 有2个应用 fastgpt ， fastgpt-pro 点击对应应用右边3个点，变更。或者点详情后右上角的变更。 修改镜像的版本号 点击变更/重启，会自动拉取最新镜像进行更新 执行对应版本的初始化脚本(如果有) 如何获取 FastGPT 访问链接 link打开对应的应用，点击外网访问地址。</description></item><item><title>Docker Compose 快速部署</title><link>/docs/development/docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/docker/</guid><description>推荐配置 link 环境 推荐配置（单节点） 测试 2c2g 100w 组向量 4c16g 500w 组向量 16c64g 1. 准备好代理环境（国外服务器可忽略） link确保可以访问 OpenAI，具体方案可以参考：代理方案。或直接在 Sealos 上 部署 OneAPI，既解决代理问题也能实现多 Key 轮询、接入其他大模型。
+2. 多模型支持 linkFastGPT 使用了 one-api 项目来管理模型池，其可以兼容 OpenAI 、Azure 、国内主流模型和本地模型等。
+可选择 Sealos 快速部署 OneAPI，更多部署方法可参考该项目的 README，也可以直接通过以下按钮一键部署：
+一、安装 Docker 和 docker-compose link Linux MacOS Windows # 安装 Docker curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun systemctl enable --now docker # 安装 docker-compose curl -L https://github.com/docker/compose/releases/download/2.20.3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose chmod &amp;#43;x /usr/local/bin/docker-compose # 验证安装 docker -v docker-compose -v # 如失效，自行百度~ 推荐直接使用 Orbstack。可直接通过 Homebrew 来安装：</description></item><item><title>接入微软、ChatGLM、本地模型等</title><link>/docs/development/one-api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/one-api/</guid><description>默认情况下，FastGPT 只配置了 GPT 的模型，如果你需要接入其他模型，需要进行一些额外配置。 One API 是一个 OpenAI 接口管理 &amp;amp; 分发系统，可以通过标准的 OpenAI API 格式访问所有的大模型，开箱即用。 FastGPT 可以通过接入 OneAPI 来实现对不同大模型的支持。OneAPI 的部署方法也很简单。 MySQL 版本 linkMySQL 版本支持多实例，高并发。
+直接点击以下按钮即可一键部署 👇
+部署完后会跳转「应用管理」，数据库在另一个应用「数据库」中。需要等待 1~3 分钟数据库运行后才能访问成功。
+SqlLite 版本 linkSqlLite 版本不支持多实例，适合个人小流量使用，但是价格非常便宜。
+1. 点击打开 Sealos 公有云
+2. 打开 AppLaunchpad(应用管理) 工具
+3. 点击创建新应用
+4. 填写对应参数
+镜像：ghcr.io/songquanpeng/one-api:latest
+打开外网访问开关后，Sealos 会自动分配一个可访问的地址，不需要自己配置。
+填写完参数后，点击右上角部署即可。环境变量：
+SESSION_SECRET=SESSION_SECRET POLLING_INTERVAL=60 BATCH_UPDATE_ENABLED=true BATCH_UPDATE_INTERVAL=60 One API使用步骤 link1. 登录 One API link打开 【One API 应用详情】，找到访问地址： 登录 One API 2. 创建渠道和令牌 link在 One API 中添加对应渠道，直接点击 【添加基础模型】，不要遗漏了向量模型 创建一个令牌 3.</description></item><item><title>配置文件介绍</title><link>/docs/development/configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/configuration/</guid><description>由于环境变量不利于配置复杂的内容，新版 FastGPT 采用了 ConfigMap 的形式挂载配置文件，你可以在 projects/app/data/config.json 看到默认的配置文件。可以参考 docker-compose 快速部署 来挂载配置文件。
+开发环境下，你需要将示例配置文件 config.json 复制成 config.local.json 文件才会生效。
+这个配置文件中包含了系统级参数、AI 对话的模型、function 模型等……
+旧版本配置文件 link以下配置适合 4.6.6-alpha 之前
+{ &amp;#34;SystemParams&amp;#34;: { &amp;#34;pluginBaseUrl&amp;#34;: &amp;#34;&amp;#34;, // 商业版接口地址 &amp;#34;vectorMaxProcess&amp;#34;: 15, // 向量生成最大进程，结合数据库性能和 key 来设置 &amp;#34;qaMaxProcess&amp;#34;: 15, // QA 生成最大进程，结合数据库性能和 key 来设置 &amp;#34;pgHNSWEfSearch&amp;#34;: 100 // pg vector 索引参数，越大精度高但速度慢 }, &amp;#34;ChatModels&amp;#34;: [ // 对话模型 { &amp;#34;model&amp;#34;: &amp;#34;gpt-3.5-turbo-1106&amp;#34;, &amp;#34;name&amp;#34;: &amp;#34;GPT35-1106&amp;#34;, &amp;#34;price&amp;#34;: 0, // 除以 100000 后等于1个token的价格 &amp;#34;maxContext&amp;#34;: 16000, // 最大上下文长度 &amp;#34;maxResponse&amp;#34;: 4000, // 最大回复长度 &amp;#34;quoteMaxToken&amp;#34;: 2000, // 最大引用内容长度 &amp;#34;maxTemperature&amp;#34;: 1.</description></item><item><title>常见开发 &amp; 部署问题</title><link>/docs/development/qa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/development/qa/</guid><description>错误排查方式 link遇到问题先按下面方式排查。
+docker ps -a 查看所有容器运行状态，检查是否全部 running，如有异常，尝试docker logs 容器名查看对应日志。 不懂 docker 不要瞎改端口，只需要改OPENAI_BASE_URL和CHAT_API_KEY即可。 容器都运行正常的，docker logs 容器名 查看报错日志 无法解决时，可以找找Issue，或新提 Issue，私有部署错误，务必提供详细的日志，否则很难排查。 通用问题 linkinsufficient_user_quota user quota is not enough linkOneAPI 账号的余额不足，默认 root 用户只有 200 刀，可以手动修改。
+xxx渠道找不到 linkOneAPI 中没有配置该模型渠道。
+页面中可以正常回复，API 报错 link页面中是用 stream=true 模式，所以API也需要设置 stream=true 来进行测试。部分模型接口（国产居多）非 Stream 的兼容有点垃圾。
+Incorrect API key provided: sk-xxxx.You can find your api Key at xxx linkOneAPI 的 API Key 配置错误，需要修改OPENAI_API_KEY环境变量，并重启容器（先 stop 然后 rm 掉，最后再 up -d 运行一次）。可以exec进入容器，env查看环境变量是否生效。
+Docker 部署常见问题 link如何更新？ link 查看更新文档，确认要升级的版本，避免跨版本升级。</description></item></channel></rss>
